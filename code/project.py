@@ -28,8 +28,8 @@ def hist(D, L, spath):
 
     for dIdx in range(12):
         plot.figure()
-        plot.hist(D0[dIdx, :], bins = 10, density = True, alpha = 0.4, label = 'Male')
-        plot.hist(D1[dIdx, :], bins = 10, density = True, alpha = 0.4, label = 'Female')
+        plot.hist(D0[dIdx, :], bins = 30, density = True, alpha = 0.4, label = 'Male')
+        plot.hist(D1[dIdx, :], bins = 30, density = True, alpha = 0.4, label = 'Female')
         
         plot.legend()
         plot.tight_layout()
@@ -82,11 +82,13 @@ if __name__ == '__main__':
     #hist(D, L, './initialGraphs/')
     #scatter(D, L, './initialGraphs/')
     
-    """mu = vcol(D.mean(1))
+    mu = vcol(D.mean(1))
 
     DC = D - mu
 
-    C = 0
+    hist(DC, L, './modifiedGraphs/')
+
+    """C = 0
     dotDC = numpy.dot(DC, numpy.transpose(DC))
     C = (1 / float(DC.shape[1])) * dotDC
 
@@ -103,7 +105,7 @@ if __name__ == '__main__':
         
         scatter(DP, L, "./modifiedGraphsPCA_%s/" % m, m)"""
 
-    [Sb, Sw] = computeCovarianceMatrices(D, L)
+    """[Sb, Sw] = computeCovarianceMatrices(D, L)
 
     s, U = scipy.linalg.eigh(Sb, Sw)
     m=2
@@ -123,4 +125,4 @@ if __name__ == '__main__':
 
     DP = numpy.dot(W.T, D)
 
-    scatter(DP, L, "./modifiedGraphsLDA_%s/" % m, m)
+    scatter(DP, L, "./modifiedGraphsLDA_%s/" % m, m)"""
