@@ -15,8 +15,8 @@ def load(fname):
     with open(fname, mode = 'r', encoding = 'utf-8') as f:
         for line in f:
             values = line.strip().split(',')
-            data = numpy.array(values[:12], dtype=numpy.float32).reshape((12, 1))
-            label = int(values[12])
+            data = numpy.array(values[:9], dtype=numpy.float32).reshape((9, 1))
+            label = int(values[-1])
             dataList.append(data)
             labelsList.append(label)
 

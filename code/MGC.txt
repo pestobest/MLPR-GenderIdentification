@@ -1,0 +1,19 @@
+MGC
+PCA: 7
+Error rate 14.8 %
+min cost: 0.946031746031746
+PCA: 8
+Error rate 12.7 %
+min cost: 0.9593253968253969
+PCA: 9
+Error rate 10.2 %
+min cost: 0.9634920634920634
+PCA: 10
+Error rate 9.0 %
+min cost: 0.9624999999999999
+PCA: 11
+Error rate 6.2 %
+min cost: 0.963095238095238
+PCA: 12
+Error rate 6.0 %
+min cost: 0.9603174603174602

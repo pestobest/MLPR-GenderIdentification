@@ -7,6 +7,7 @@ if __name__ == '__main__':
     L = []
 
     [D, L] = load('../Train.txt')
+    print(D.shape)
     
     mu = vcol(D.mean(1))
 

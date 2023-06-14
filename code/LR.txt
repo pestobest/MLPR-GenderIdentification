@@ -1,0 +1,19 @@
+lambda = 10**-4
+PCA: 7
+Error rate 12.9 %
+min cost: 0.2970238095238095
+PCA: 8
+Error rate 11.8 %
+min cost: 0.24305555555555555
+PCA: 9
+Error rate 9.7 %
+min cost: 0.2003968253968254
+PCA: 10
+Error rate 7.6 %
+min cost: 0.166468253968254
+PCA: 11
+Error rate 5.3 %
+min cost: 0.11567460317460318
+PCA: 12
+Error rate 5.1 %
+min cost: 0.11428571428571428

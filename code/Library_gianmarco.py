@@ -180,77 +180,61 @@ def split_db_2to1(D, L, seed=0):
     LTE = L[idxTest]
     return (DTR, LTR), (DTE, LTE)
 
-def multivariete_gaussian_classifier(DTR, LTR, DTE, LTE):
+def multivariete_gaussian_classifier(DTR, LTR, DTE, LTE, prior):
     S = []
-    prior = vcol(numpy.ones(3)/3.0)
+    prior = vcol(numpy.ones(2)*prior)
     D0 = DTR[:, LTR==0]
     D1 = DTR[:, LTR==1]
-    D2 = DTR[:, LTR==2]
     mu0 = vcol(D0.mean(1))
     C0 = (numpy.dot((D0 - mu0), (D0 - mu0).T))/D0.shape[1]
     mu1 = vcol(D1.mean(1))
     C1 = (numpy.dot((D1 - mu1), (D1 - mu1).T))/D1.shape[1]
-    mu2 = vcol(D2.mean(1))
-    C2 = (numpy.dot((D2 - mu2), (D2 - mu2).T))/D2.shape[1]
     fc0 = logpdf_GAU_ND_fast(DTE, mu0, C0)
     S.append(vrow(numpy.exp(fc0)))
     fc1 = logpdf_GAU_ND_fast(DTE, mu1, C1)
     S.append(vrow(numpy.exp(fc1)))
-    fc2 = logpdf_GAU_ND_fast(DTE, mu2, C2)
-    S.append(vrow(numpy.exp(fc2)))
     S = numpy.vstack(S)
     S = S * prior
     P = S / vrow(S.sum(0))
     PL = P.argmax(0)
     return S, PL
 
-def naive_bayes_gaussian_classifier(DTR,LTR,DTE,LTE):
+def naive_bayes_gaussian_classifier(DTR,LTR,DTE,LTE, prior):
     S = []
-    prior = vcol(numpy.ones(3)/3.0)
+    prior = vcol(numpy.ones(2)*prior)
     D0 = DTR[:, LTR==0]
     D1 = DTR[:, LTR==1]
-    D2 = DTR[:, LTR==2]
     mu0 = vcol(D0.mean(1))
     C0 = (numpy.dot((D0 - mu0), (D0 - mu0).T))/D0.shape[1]
     mu1 = vcol(D1.mean(1))
     C1 = (numpy.dot((D1 - mu1), (D1 - mu1).T))/D1.shape[1]
-    mu2 = vcol(D2.mean(1))
-    C2 = (numpy.dot((D2 - mu2), (D2 - mu2).T))/D2.shape[1]
     diagonal = numpy.identity(mu0.shape[0])
     C0_d = C0*diagonal
     C1_d = C1*diagonal
-    C2_d = C2*diagonal
     fc0 = logpdf_GAU_ND_fast(DTE, mu0, C0_d)
     S.append(vrow(numpy.exp(fc0)))
     fc1 = logpdf_GAU_ND_fast(DTE, mu1, C1_d)
     S.append(vrow(numpy.exp(fc1)))
-    fc2 = logpdf_GAU_ND_fast(DTE, mu2, C2_d)
-    S.append(vrow(numpy.exp(fc2)))
     S = numpy.vstack(S)
     S = S * prior
     P = S / vrow(S.sum(0))
     PL = P.argmax(0)
     return S, PL
 
-def tied_covariance_gaussian_classier(DTR,LTR,DTE,LTE):
+def tied_covariance_gaussian_classier(DTR,LTR,DTE,LTE, prior):
     S = []
-    prior = vcol(numpy.ones(3)/3.0)
+    prior = vcol(numpy.ones(2)*prior)
     D0 = DTR[:, LTR==0]
     D1 = DTR[:, LTR==1]
-    D2 = DTR[:, LTR==2]
     mu0 = vcol(D0.mean(1))
     C0 = (numpy.dot((D0 - mu0), (D0 - mu0).T))/D0.shape[1]
     mu1 = vcol(D1.mean(1))
     C1 = (numpy.dot((D1 - mu1), (D1 - mu1).T))/D1.shape[1]
-    mu2 = vcol(D2.mean(1))
-    C2 = (numpy.dot((D2 - mu2), (D2 - mu2).T))/D2.shape[1]
-    C_tied = (C0*D0.shape[1]+C1*D1.shape[1]+C2*D2.shape[1])/DTR.shape[1]
+    C_tied = (C0*D0.shape[1]+C1*D1.shape[1])/DTR.shape[1]
     fc0 = logpdf_GAU_ND_fast(DTE, mu0, C_tied)
     S.append(vrow(numpy.exp(fc0)))
     fc1 = logpdf_GAU_ND_fast(DTE, mu1, C_tied)
     S.append(vrow(numpy.exp(fc1)))
-    fc2 = logpdf_GAU_ND_fast(DTE, mu2, C_tied)
-    S.append(vrow(numpy.exp(fc2)))
     S = numpy.vstack(S)
     S = S * prior
     P = S / vrow(S.sum(0))
@@ -418,7 +402,7 @@ def logreg(v, DTE):
             LP[i] = 1
         else:
             LP[i] = 0
-    return LP
+    return s, LP
 
 def accuracy(v, LTE):
     n = v.shape[0]

@@ -1,0 +1,18 @@
+PCA: 7
+Error rate 16.4 %
+min cost: 0.9392857142857143
+PCA: 8
+Error rate 15.1 %
+min cost: 0.9613095238095237
+PCA: 9
+Error rate 11.0 %
+min cost: 0.963095238095238
+PCA: 10
+Error rate 9.3 %
+min cost: 0.9621031746031745
+PCA: 11
+Error rate 7.2 %
+min cost: 0.9706349206349205
+PCA: 12
+Error rate 6.7 %
+min cost: 0.9615079365079364

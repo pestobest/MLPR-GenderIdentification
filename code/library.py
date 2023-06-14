@@ -9,18 +9,27 @@ def vcol(vect):
 def vrow(vect):
     return vect.reshape((1, vect.size))
 
-def load(fname):
-    dataList = []
-    labelsList = []
-    with open(fname, mode = 'r', encoding = 'utf-8') as f:
+def load(filename):
+    list_of_samples = []
+    list_of_labels = []
+    with open(filename, 'r') as f:
         for line in f:
-            values = line.strip().split(',')
-            data = numpy.array(values[:12], dtype=numpy.float32).reshape((12, 1))
-            label = int(values[12])
-            dataList.append(data)
-            labelsList.append(label)
-
-    return numpy.hstack(dataList), numpy.array(labelsList, dtype=numpy.int32)
+            data = line.split(',')
+            if data[0] != '\n':
+                for i in range(len(data)-1):
+                    data[i] = float(data[i])
+                data[-1] = int(data[-1].rstrip('\n'))
+                # Now create a 1-dim array and reshape it as a column vector,
+                # then append it to the appropriate list
+                list_of_samples.append(vcol(numpy.array(data[0:-1])))
+                # Append the value of the class to the appropriate list
+                list_of_labels.append(data[-1])
+    # We have column vectors, we need to create a matrix, so we have to
+    # stack horizontally all the column vectors
+    dataset_matrix = numpy.hstack(list_of_samples[:])
+    # Create a 1-dim array with class labels
+    class_label_array = numpy.array(list_of_labels)
+    return dataset_matrix, class_label_array
 
 def hist(D, L, spath):
 
