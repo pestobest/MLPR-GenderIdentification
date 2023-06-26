@@ -28,52 +28,7 @@ def load(file):
                 vectors.append(mcol(numpy.array([float(i) for i in attr])))
                 labels.append(hLabels[w[-1].strip()])
     return (numpy.hstack(vectors), numpy.array(labels, dtype=numpy.int32))
-    
-def plot_hist(D, L):
-    D0 = D[:, L==0]
-    D1 = D[:, L==1]
-    D2 = D[:, L==2]
-    hFea = {
-        0: 'Sepal length',
-        1: 'Sepal width',
-        2: 'Petal length',
-        3: 'Petal width'
-        }
-    for i in range(4):   
-        plt.figure()
-        plt.xlabel(hFea[i])
-        plt.hist(D0[i, :], density=True, alpha = 0.4, label='Setosa')
-        plt.hist(D1[i, :], density=True, alpha = 0.4, label='Versicolor')
-        plt.hist(D2[i, :], density=True, alpha = 0.4, label='Virginica')
-        plt.legend()
-    plt.show()
-
-def plot_scatter(D, L):
-    D0 = D[:, L==0]
-    D1 = D[:, L==1]
-    D2 = D[:, L==2]
-    hFea = {
-        0: 'Sepal length',
-        1: 'Sepal width',
-        2: 'Petal length',
-        3: 'Petal width'
-        }
-    for i in range(3):
-        for j in range(i + 1, 4):
-            plt.figure()
-            plt.xlabel(hFea[i])
-            plt.ylabel(hFea[j])
-            plt.scatter(D0[i, :], D0[j, :], label='Setosa')
-            plt.scatter(D1[i, :], D1[j, :], label='Versicolor')
-            plt.scatter(D2[i, :], D2[j, :], label='Virginica')
-            plt.legend()
-        plt.show()
-
-def load2():
-    # The dataset is already available in the sklearn library (pay attention that the library represents samples as row vectors, not column vectors - we need to transpose the data matrix)
-    import sklearn.datasets
-    return sklearn.datasets.load_iris()['data'].T, sklearn.datasets.load_iris()['target']
-
+        
 def vcol(v):
     return v.reshape((v.size, 1))
 
@@ -81,20 +36,11 @@ def vrow(v):
     return v.reshape((1, v.size))
 
 def PCA(D, m):
-    
     mu = vcol(D.mean(1))
-    #print("mean:", mu)
-    C = (numpy.dot((D - mu), (D - mu).T))/D.shape[1]
-    #print("C:", C)
-    s, U = numpy.linalg.eigh(C)
-    P = U[:, ::-1][:, 0:m]
-    return P
-
-def PCA2(D, m):    
-    
-    #Alternative method to calculate P 
-    mu = vcol(D.mean(1))
-    C = (numpy.dot((D - mu), (D - mu).T))/D.shape[1]
+    DC = D - mu
+    C = 0
+    dotDC = numpy.dot(DC, DC.T)
+    C = (1 / float(D.shape[1])) * dotDC
     U, s, Vh = numpy.linalg.svd(C)
     P = U[:, 0:m]
     return P
@@ -197,7 +143,7 @@ def multivariete_gaussian_classifier(DTR, LTR, DTE, LTE, prior):
     S = S * prior
     P = S / vrow(S.sum(0))
     PL = P.argmax(0)
-    return S, PL
+    return fc1-fc0, PL
 
 def naive_bayes_gaussian_classifier(DTR,LTR,DTE,LTE, prior):
     S = []
@@ -219,7 +165,7 @@ def naive_bayes_gaussian_classifier(DTR,LTR,DTE,LTE, prior):
     S = S * prior
     P = S / vrow(S.sum(0))
     PL = P.argmax(0)
-    return S, PL
+    return fc1-fc0, PL
 
 def tied_covariance_gaussian_classier(DTR,LTR,DTE,LTE, prior):
     S = []
@@ -239,145 +185,30 @@ def tied_covariance_gaussian_classier(DTR,LTR,DTE,LTE, prior):
     S = S * prior
     P = S / vrow(S.sum(0))
     PL = P.argmax(0)
-    return S, PL
+    return fc1-fc0, PL
 
-def tied_naive_bayes_classier(DTR,LTR,DTE,LTE):
+def tied_naive_bayes_classier(DTR,LTR,DTE,LTE, prior):
     S = []
-    prior = vcol(numpy.ones(3)/3.0)
+    prior = vcol(numpy.ones(2)*prior)
     D0 = DTR[:, LTR==0]
     D1 = DTR[:, LTR==1]
-    D2 = DTR[:, LTR==2]
     mu0 = vcol(D0.mean(1))
     C0 = (numpy.dot((D0 - mu0), (D0 - mu0).T))/D0.shape[1]
     mu1 = vcol(D1.mean(1))
     C1 = (numpy.dot((D1 - mu1), (D1 - mu1).T))/D1.shape[1]
-    mu2 = vcol(D2.mean(1))
-    C2 = (numpy.dot((D2 - mu2), (D2 - mu2).T))/D2.shape[1]
     diagonal = numpy.identity(mu0.shape[0])
     C0_d = C0*diagonal
     C1_d = C1*diagonal
-    C2_d = C2*diagonal
-    C_tied = (C0_d*D0.shape[1]+C1_d*D1.shape[1]+C2_d*D2.shape[1])/DTR.shape[1]
+    C_tied = (C0_d*D0.shape[1]+C1_d*D1.shape[1])/DTR.shape[1]
     fc0 = logpdf_GAU_ND_fast(DTE, mu0, C_tied)
     S.append(vrow(numpy.exp(fc0)))
     fc1 = logpdf_GAU_ND_fast(DTE, mu1, C_tied)
     S.append(vrow(numpy.exp(fc1)))
-    fc2 = logpdf_GAU_ND_fast(DTE, mu2, C_tied)
-    S.append(vrow(numpy.exp(fc2)))
     S = numpy.vstack(S)
     S = S * prior
     P = S / vrow(S.sum(0))
     PL = P.argmax(0)
-    return S, PL
-    
-
-def k_fold_cross_validation(D, L, K):
-    prediction_mgc = numpy.zeros(D.shape[1])
-    S_mgc = numpy.zeros((3, D.shape[1]))
-    prediction_nb = numpy.zeros(D.shape[1])
-    S_nb = numpy.zeros((3, D.shape[1]))
-    prediction_tc = numpy.zeros(D.shape[1])
-    S_tc = numpy.zeros((3, D.shape[1]))
-    prediction_tnb = numpy.zeros(D.shape[1])
-    S_tnb = numpy.zeros((3, D.shape[1]))
-    for i in range(D.shape[1]):
-        DTR = numpy.delete(D,i,1)
-        LTR = numpy.delete(L,i)
-        DTE = vcol(D[:,i])
-        LTE = L[i]
-        S, pcarr_mgc= multivariete_gaussian_classifier(DTR,LTR,DTE,LTE)
-        S_mgc[0][i] = S[0]
-        S_mgc[1][i] = S[1]
-        S_mgc[2][i] = S[2]
-        prediction_mgc[i]=pcarr_mgc
-        S, pcarr_nb= naive_bayes_gaussian_classifier(DTR,LTR,DTE,LTE)
-        S_nb[0][i] = S[0]
-        S_nb[1][i] = S[1]
-        S_nb[2][i] = S[2]
-        prediction_nb[i]=pcarr_nb
-        S, pcarr_tc= tied_covariance_gaussian_classier(DTR,LTR,DTE,LTE)
-        S_tc[0][i] = S[0]
-        S_tc[1][i] = S[1]
-        S_tc[2][i] = S[2]
-        prediction_tc[i]=pcarr_tc
-        S, pcarr_tnb= tied_naive_bayes_classier(DTR,LTR,DTE,LTE)
-        S_tnb[0][i] = S[0]
-        S_tnb[1][i] = S[1]
-        S_tnb[2][i] = S[2]
-        prediction_tnb[i]=pcarr_tnb
-    print("----------------------")
-    print("Multivariate Gaussian model")
-    logSJoint = numpy.log(S_mgc)
-    logSJoint_prof = numpy.load('Solution/LOO_logSJoint_MVG.npy')
-    print(numpy.abs((logSJoint-logSJoint_prof)).max())
-    cont_true = 0
-    cont_false = 0
-    for i in range(150):
-        if(prediction_mgc[i]==L[i]):
-            cont_true +=1
-        else:
-            cont_false+=1
-    print("Accuracy", cont_true/150*100, "%")
-    print("Error", cont_false/150*100, "%")
-    
-    print("----------------------")
-    print("Naive Bayes Gaussian model")
-    logSJoint = numpy.log(S_nb)
-    logSJoint_prof = numpy.load('Solution/LOO_logSJoint_NaiveBayes.npy')
-    print(numpy.abs((logSJoint-logSJoint_prof)).max())
-    cont_true = 0
-    cont_false = 0
-    for i in range(150):
-        if(prediction_nb[i]==L[i]):
-            cont_true +=1
-        else:
-            cont_false+=1
-    print("Accuracy", cont_true/150*100, "%")
-    print("Error", cont_false/150*100, "%")
-    
-    print("----------------------")
-    print("Tied Covariance Gaussian model")
-    logSJoint = numpy.log(S_tc)
-    logSJoint_prof = numpy.load('Solution/LOO_logSJoint_TiedMVG.npy')
-    print(numpy.abs((logSJoint-logSJoint_prof)).max())
-    cont_true = 0
-    cont_false = 0
-    for i in range(150):
-        if(prediction_tc[i]==L[i]):
-            cont_true +=1
-        else:
-            cont_false+=1
-    print("Accuracy", cont_true/150*100, "%")
-    print("Error", cont_false/150*100, "%")
-    
-    print("----------------------")
-    print("Tied Naive Bayes model")
-    logSJoint = numpy.log(S_tnb)
-    logSJoint_prof = numpy.load('Solution/LOO_logSJoint_TiedNaiveBayes.npy')
-    print(numpy.abs((logSJoint-logSJoint_prof)).max())
-    cont_true = 0
-    cont_false = 0
-    for i in range(150):
-        if(prediction_tnb[i]==L[i]):
-            cont_true +=1
-        else:
-            cont_false+=1
-    print("Accuracy", cont_true/150*100, "%")
-    print("Error", cont_false/150*100, "%")
-    
-def f(x):
-    y = x[0]
-    z = x[1]
-    return (y+3)**2+numpy.sin(y)+(z+1)**2
-
-def f_grad(x):
-    y = x[0]
-    z = x[1]
-    f = (y+3)**2+numpy.sin(y)+(z+1)**2
-    grad = numpy.zeros((2,))
-    grad[0] = 2*(y+3)+numpy.cos(y)
-    grad[1] = 2*(z+1)
-    return f, grad
+    return fc1-fc0, PL
 
 def logreg_obj(v, DTR, LTR, l):
     w, b = v[0:-1], v[-1]
@@ -410,8 +241,21 @@ def accuracy(v, LTE):
     for i in range(n):
         if(v[i] != LTE[i]):
             cont_false += 1
-    print("Error rate %.1f" %(cont_false/n*100), "%")
-    
+    #print("Error rate %.1f" %(cont_false/n*100), "%")
+    return cont_false/n*100
+
+def Ksplit(D, L, seed=0, K=3):
+    folds = []
+    labels = []
+    numberOfSamplesInFold = int(D.shape[1]/K)
+    # Generate a random seed
+    numpy.random.seed(seed)
+    idx = numpy.random.permutation(D.shape[1])
+    for i in range(K):
+        folds.append(D[:,idx[(i*numberOfSamplesInFold): ((i+1)*(numberOfSamplesInFold))]])
+        labels.append(L[idx[(i*numberOfSamplesInFold): ((i+1)*(numberOfSamplesInFold))]])
+    return folds, labels
+   
 def logreg_obj_wrap(DTR, LTR, l):
     def logreg_obj(v):
         w, b = v[0:-1], v[-1]
@@ -592,7 +436,8 @@ def accuracy_v2(v, LTE):
     for i in range(n):
         if((v[i] > 0 and LTE[i] == 1) or (v[i] <= 0 and LTE[i] == 0)):
             cont_true += 1
-    print("Error rate %.1f" % ((1-(cont_true/n))*100), "%", sep="")
+    #print("Error rate %.1f" % ((1-(cont_true/n))*100), "%", sep="")
+    return (1-(cont_true/n))*100
 
 def bounds_creator(C, n):
     bounds = []
@@ -819,3 +664,15 @@ def GMM_EM_estimation_tied(X, gmm, delta):
         referenceGMM = new_GMM
         S, logdens=S_new, logdens_new
     return referenceGMM
+
+def correlationsPlot(D, L, desc = ''):
+    cmap = ['Greys', 'Reds', 'Blues']
+    corrCoeff = {
+        0: numpy.abs(numpy.corrcoef(D)),
+        1: numpy.abs(numpy.corrcoef(D[:, L == 0])),
+        2: numpy.abs(numpy.corrcoef(D[:, L == 1]))
+    }
+    for i in range(3):
+        plt.figure()
+        plt.imshow(corrCoeff[i], cmap = cmap[i], interpolation = 'nearest')
+        plt.savefig('heatmaps/' + desc + 'heatmap_%d.jpg' % i)

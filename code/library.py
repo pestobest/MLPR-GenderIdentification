@@ -135,7 +135,7 @@ def NB(DTR, LTR):
     mu = []
     C = []
 
-    for i in range(3):
+    for i in range(2):
         X = DTR[:, LTR == i]
         mu.append(X.mean(1))
         X = X - vcol(mu[i])
@@ -170,7 +170,7 @@ def gaussian_model_score(DTE, LTE, mu, C):
             listS.append(numpy.hstack(lDataList))
         S = numpy.vstack(listS)
 
-    P_c = 1 / 3
+    P_c = 0.5
     logSJoint = S + numpy.log(P_c)
     logSMarginal = vrow(scipy.special.logsumexp(logSJoint, axis = 0))
     logSPost = logSJoint - logSMarginal
@@ -183,7 +183,7 @@ def gaussian_model_score(DTE, LTE, mu, C):
         if res[i] == LTE[i]:
             correct += 1
 
-    return correct
+    return logSPost, correct
 
 def logpdf_GAU_ND_1D(x, mu, C):
     _, logDetC = numpy.linalg.slogdet(C)

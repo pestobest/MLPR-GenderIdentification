@@ -6,7 +6,7 @@ Created on Tue Jun 13 21:04:52 2023
 """
 
 import numpy
-from Library_gianmarco import multivariete_gaussian_classifier, Bayes_risk_min_cost, accuracy, PCA, Ksplit
+from Library_gianmarco import tied_naive_bayes_classier, Bayes_risk_min_cost, accuracy, PCA, Ksplit
 from library import load
 
 if __name__ == '__main__':
@@ -14,9 +14,9 @@ if __name__ == '__main__':
     L = []
 
     [D, L] = load('../Train.txt')
-
-    print("Multivariate Gaussian model")
-
+    
+    print("Tied Naive Bayes model")
+    
     for m in range(7, 13):
         print("PCA:", m)
         P = PCA(D, m)
@@ -38,9 +38,9 @@ if __name__ == '__main__':
             LTE = labels[i]
             DTR = numpy.hstack(DTR)
             LTR = numpy.hstack(LTR)
-            s, LP = multivariete_gaussian_classifier(DTR, LTR, DTE, LTE, 0.5)
+            s, LP = tied_naive_bayes_classier(DTR, LTR, DTE, LTE, 0.5)
             acc += accuracy(LP, LTE)
             min_cost += Bayes_risk_min_cost(0.5, 1, 1, s, LTE)
         print("Error rate %.3f" %(acc/K), "%")
-        print("min cost:", min_cost/K)
+        print("min cost: %.3f" %(min_cost/K))
         print()

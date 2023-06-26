@@ -6,20 +6,8 @@ Created on Tue Jun 13 21:04:52 2023
 """
 
 import numpy
-from Library_gianmarco import tied_covariance_gaussian_classier, vcol, Bayes_risk_min_cost, accuracy
+from Library_gianmarco import tied_covariance_gaussian_classier, Bayes_risk_min_cost, accuracy, PCA, Ksplit
 from library import load
-
-def Ksplit(D, L, seed=0, K=3):
-    folds = []
-    labels = []
-    numberOfSamplesInFold = int(D.shape[1]/K)
-    # Generate a random seed
-    numpy.random.seed(seed)
-    idx = numpy.random.permutation(D.shape[1])
-    for i in range(K):
-        folds.append(D[:,idx[(i*numberOfSamplesInFold): ((i+1)*(numberOfSamplesInFold))]])
-        labels.append(L[idx[(i*numberOfSamplesInFold): ((i+1)*(numberOfSamplesInFold))]])
-    return folds, labels
 
 if __name__ == '__main__':
     D = []
@@ -27,33 +15,18 @@ if __name__ == '__main__':
 
     [D, L] = load('../Train.txt')
     
-    mu = vcol(D.mean(1))
+    print("Tied Covariance model")
 
-    DC = D - mu
-
-    C = 0
-    dotDC = numpy.dot(D, D.T)
-    C = (1 / float(D.shape[1])) * dotDC
-
-    U, s, Vh = numpy.linalg.svd(C)
-
-    m = 3
-    num = 0
-    den = 0
-
-    for m in range(7, s.size + 1):
+    for m in range(7, 13):
         print("PCA:", m)
-        P = U[:, 0:m]
+        P = PCA(D, m)
 
         DP = numpy.dot(P.T, D)
         
-        LTEs = []
-        scores = []
-        K = 3
+        K = 5
         folds, labels = Ksplit(DP, L, seed=0, K=K)
-        LTE = []
-        scores = []
-        LPs = []
+        acc = 0
+        min_cost = 0
         for i in range(K):
             DTR = []
             LTR = []
@@ -62,16 +35,12 @@ if __name__ == '__main__':
                     DTR.append(folds[j])
                     LTR.append(labels[j])
             DTE = folds[i]
-            LTE.append(labels[i])
-            DTR=numpy.hstack(DTR)
-            LTR=numpy.hstack(LTR)
+            LTE = labels[i]
+            DTR = numpy.hstack(DTR)
+            LTR = numpy.hstack(LTR)
             s, LP = tied_covariance_gaussian_classier(DTR, LTR, DTE, LTE, 0.5)
-            scores.append(s)
-            LPs.append(LP)
-        scores=numpy.hstack(scores)
-        scores = numpy.max(scores, axis = 0)
-        LTE=numpy.hstack(LTE)
-        labels = numpy.hstack(labels)
-        LPs = numpy.hstack(LPs)
-        accuracy(LPs, labels)
-        print("min cost:", Bayes_risk_min_cost(0.5, 1, 1, scores, LTE))
+            acc += accuracy(LP, LTE)
+            min_cost += Bayes_risk_min_cost(0.5, 1, 1, s, LTE)
+        print("Error rate %.3f" %(acc/K), "%")
+        print("min cost: %.3f" %(min_cost/K))
+        print()

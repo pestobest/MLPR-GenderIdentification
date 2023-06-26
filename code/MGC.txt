@@ -1,19 +1,24 @@
-MGC
+Multivariate Gaussian model
 PCA: 7
-Error rate 14.8 %
-min cost: 0.946031746031746
+Error rate 13.375 %
+min cost: 0.2619896453144634
+
 PCA: 8
-Error rate 12.7 %
-min cost: 0.9593253968253969
+Error rate 9.917 %
+min cost: 0.18686187029484752
+
 PCA: 9
-Error rate 10.2 %
-min cost: 0.9634920634920634
+Error rate 9.708 %
+min cost: 0.17948517390421279
+
 PCA: 10
-Error rate 9.0 %
-min cost: 0.9624999999999999
+Error rate 8.583 %
+min cost: 0.15019670467777205
+
 PCA: 11
-Error rate 6.2 %
-min cost: 0.963095238095238
+Error rate 6.333 %
+min cost: 0.11255904826387808
+
 PCA: 12
-Error rate 6.0 %
-min cost: 0.9603174603174602
+Error rate 6.250 %
+min cost: 0.10664603462363946

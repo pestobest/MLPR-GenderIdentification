@@ -1,18 +1,24 @@
+Tied Covariance model
 PCA: 7
-Error rate 15.0 %
-min cost: 0.9482142857142858
+Error rate 13.333 %
+min cost: 0.260
+
 PCA: 8
-Error rate 12.2 %
-min cost: 0.9555555555555555
+Error rate 9.542 %
+min cost: 0.182
+
 PCA: 9
-Error rate 9.8 %
-min cost: 0.9577380952380952
+Error rate 9.458 %
+min cost: 0.172
+
 PCA: 10
-Error rate 8.4 %
-min cost: 0.965079365079365
+Error rate 8.250 %
+min cost: 0.151
+
 PCA: 11
-Error rate 6.2 %
-min cost: 0.9601190476190476
+Error rate 6.292 %
+min cost: 0.108
+
 PCA: 12
-Error rate 6.3 %
-min cost: 0.9543650793650793
+Error rate 6.250 %
+min cost: 0.100

@@ -1,6 +1,7 @@
 # SVM
 import numpy
 from library import vcol, load, split_db_2to1, dual_SVM, accuracy_v2 
+from Library_gianmarco import Bayes_risk_min_cost
 
 if __name__ == '__main__':
     D = []
@@ -30,4 +31,6 @@ if __name__ == '__main__':
         (DTR, LTR), (DTE, LTE) = split_db_2to1(DP, L)
         
         w = dual_SVM(DTR, LTR, 1, 1)
-        accuracy_v2(numpy.dot(w.T, numpy.vstack((DTE, numpy.zeros(DTE.shape[1]) + 1))), LTE)
+        scores = numpy.dot(w.T, numpy.vstack((DTE, numpy.zeros(DTE.shape[1]) + 1)))
+        accuracy_v2(scores, LTE)
+        print(Bayes_risk_min_cost(0.5, 1, 1, scores, LTE))
