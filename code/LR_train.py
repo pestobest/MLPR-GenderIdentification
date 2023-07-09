@@ -28,7 +28,7 @@ if __name__ == '__main__':
         folds, labels = Ksplit(DP, L, seed=0, K=K)
         acc = 0
         min_cost = 0
-        l_vec=[10**(-6), 10**(-3), 10**(-1), 1.0]
+        l_vec=[10**(-5), 10**(-3), 10**(-1), 1.0]
         for l in l_vec:
             print("lambda:", l)
             for i in range(K):

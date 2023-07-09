@@ -6,7 +6,7 @@ Created on Tue Jun 13 21:04:52 2023
 """
 
 import numpy
-from Library_gianmarco import RBF_kernel_SVM, Bayes_risk_min_cost, accuracy_v2,  PCA, Ksplit
+from Library_gianmarco import RBF_kernel_SVM, Bayes_risk_min_cost, PCA, Ksplit
 from library import load
 
 if __name__ == '__main__':
@@ -42,9 +42,10 @@ if __name__ == '__main__':
                 LTE = labels[i]
                 DTR = numpy.hstack(DTR)
                 LTR = numpy.hstack(LTR)
-                scores = RBF_kernel_SVM(DTR, LTR, C, K, gamma, LTE, DTE)
-                acc += accuracy_v2(scores, LTE)
+                scores = RBF_kernel_SVM(DTR, LTR, C, K, gamma, DTE)
+                #print(accuracy_v2(scores, LTE))
+                #acc += accuracy_v2(scores, LTE)
                 min_cost += Bayes_risk_min_cost(0.5, 1, 1, scores, LTE)
-            print("Error rate %.1f" %(acc/K_fold), "%")
+            #print("Error rate %.1f" %(acc/K_fold), "%")
             print("min cost:", min_cost/K_fold)
             print()

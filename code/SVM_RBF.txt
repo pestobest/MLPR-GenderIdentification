@@ -3,118 +3,46 @@ K: 0
 C: 1
 gamma: 1
 PCA: 10
-Dual loss 959.9999845847203
-Dual loss 959.9996898886096
-Dual loss 959.9999990692952
-Dual loss 959.9996886280276
-Dual loss 959.9996884631594
-Error rate 10.4 %
-min cost: 0.25905655264177935
+min cost: 0.25438203617036353
 
 PCA: 11
-Dual loss 959.9999996377135
-Dual loss 959.9998196530767
-Dual loss 959.9999994844311
-Dual loss 959.999819765387
-Dual loss 959.999819505178
-Error rate 9.4 %
-min cost: 0.2372015776612117
+min cost: 0.23211237872409213
 
 PCA: 12
-Dual loss 959.999999960722
-Dual loss 959.9998871322741
-Dual loss 959.9999999066333
-Dual loss 959.9998872174241
-Dual loss 959.9998871174271
-Error rate 9.8 %
-min cost: 0.24573857930273668
+min cost: 0.24263928512567484
 
 K: 0
 C: 1
 gamma: 10
 PCA: 10
-Dual loss 960.0
-Dual loss 960.0
-Dual loss 960.0
-Dual loss 960.0
-Dual loss 960.0
-Error rate 23.8 %
-min cost: 0.4005564836381458
+min cost: 0.39749226657755515
 
 PCA: 11
-Dual loss 960.0
-Dual loss 960.0
-Dual loss 960.0
-Dual loss 960.0
-Dual loss 960.0
-Error rate 26.9 %
-min cost: 0.4236939797341126
+min cost: 0.4229667070068398
 
 PCA: 12
-Dual loss 960.0
-Dual loss 960.0
-Dual loss 960.0
-Dual loss 960.0
-Dual loss 960.0
-Error rate 31.0 %
-min cost: 0.4737108824707594
+min cost: 0.4721235808834578
 
 K: 1
 C: 1
 gamma: 1
 PCA: 10
-Dual loss 734.8334529190098
-Dual loss 738.7735143796726
-Dual loss 738.7735707220423
-Dual loss 732.8543415510277
-Dual loss 758.1069446599979
-Error rate 30.0 %
-min cost: 1.0
+min cost: 0.8661959379685777
 
 PCA: 11
-Dual loss 734.8334566282966
-Dual loss 738.7735380332965
-Dual loss 738.7735708005603
-Dual loss 732.8543657580051
-Dual loss 758.1069719968925
-Error rate 30.0 %
-min cost: 1.0
+min cost: 0.9166483870842805
 
 PCA: 12
-Dual loss 734.8334566900977
-Dual loss 738.7735503310132
-Dual loss 738.7735708808494
-Dual loss 732.8543776855795
-Dual loss 758.1069855945705
-Error rate 30.0 %
-min cost: 1.0
+min cost: 0.936431578948158
 
 K: 1
 C: 1
 gamma: 10
 PCA: 10
-Dual loss 734.8334566987447
-Dual loss 738.7735708982912
-Dual loss 738.7735708982918
-Dual loss 732.854397634892
-Dual loss 758.10700828938
-Error rate 30.0 %
 min cost: 1.0
 
 PCA: 11
-Dual loss 734.8334566987447
-Dual loss 738.7735708982912
-Dual loss 738.7735708982918
-Dual loss 732.854397634892
-Dual loss 758.10700828938
-Error rate 30.0 %
 min cost: 1.0
 
 PCA: 12
-Dual loss 734.8334566987447
-Dual loss 738.7735708982912
-Dual loss 738.7735708982918
-Dual loss 732.854397634892
-Dual loss 758.10700828938
-Error rate 30.0 %
 min cost: 1.0
