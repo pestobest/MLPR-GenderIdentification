@@ -1,24 +1,85 @@
-Naive Bayes model
+Naive Bayes model RAW features
+Prior: 0.5
 PCA: 7
-Error rate 13.667 %
-min cost: 0.270
-
+min cost: 0.274
 PCA: 8
-Error rate 9.958 %
-min cost: 0.186
-
+min cost: 0.199
 PCA: 9
-Error rate 9.667 %
-min cost: 0.180
-
+min cost: 0.193
 PCA: 10
-Error rate 8.833 %
-min cost: 0.161
-
+min cost: 0.168
 PCA: 11
-Error rate 6.708 %
-min cost: 0.123
-
+min cost: 0.127
 PCA: 12
-Error rate 6.583 %
-min cost: 0.116
+min cost: 0.120
+
+Prior: 0.1
+PCA: 7
+min cost: 0.645
+PCA: 8
+min cost: 0.474
+PCA: 9
+min cost: 0.447
+PCA: 10
+min cost: 0.449
+PCA: 11
+min cost: 0.324
+PCA: 12
+min cost: 0.335
+
+Prior: 0.9
+PCA: 7
+min cost: 0.679
+PCA: 8
+min cost: 0.548
+PCA: 9
+min cost: 0.544
+PCA: 10
+min cost: 0.469
+PCA: 11
+min cost: 0.370
+PCA: 12
+min cost: 0.352
+
+Naive Bayes model Z-norm features
+Prior: 0.5
+PCA: 7
+min cost: 0.260
+PCA: 8
+min cost: 0.264
+PCA: 9
+min cost: 0.208
+PCA: 10
+min cost: 0.184
+PCA: 11
+min cost: 0.124
+PCA: 12
+min cost: 0.118
+
+Prior: 0.1
+PCA: 7
+min cost: 0.524
+PCA: 8
+min cost: 0.521
+PCA: 9
+min cost: 0.486
+PCA: 10
+min cost: 0.435
+PCA: 11
+min cost: 0.312
+PCA: 12
+min cost: 0.321
+
+Prior: 0.9
+PCA: 7
+min cost: 0.667
+PCA: 8
+min cost: 0.673
+PCA: 9
+min cost: 0.597
+PCA: 10
+min cost: 0.546
+PCA: 11
+min cost: 0.349
+PCA: 12
+min cost: 0.340

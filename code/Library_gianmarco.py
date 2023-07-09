@@ -118,7 +118,6 @@ def split_db_2to1(D, L, seed=0):
 
 def multivariete_gaussian_classifier(DTR, LTR, DTE, LTE, prior):
     S = []
-    prior = vcol(numpy.ones(2)*prior)
     D0 = DTR[:, LTR==0]
     D1 = DTR[:, LTR==1]
     mu0 = vcol(D0.mean(1))
@@ -137,7 +136,6 @@ def multivariete_gaussian_classifier(DTR, LTR, DTE, LTE, prior):
 
 def naive_bayes_gaussian_classifier(DTR,LTR,DTE,LTE, prior):
     S = []
-    prior = vcol(numpy.ones(2)*prior)
     D0 = DTR[:, LTR==0]
     D1 = DTR[:, LTR==1]
     mu0 = vcol(D0.mean(1))
@@ -159,7 +157,6 @@ def naive_bayes_gaussian_classifier(DTR,LTR,DTE,LTE, prior):
 
 def tied_covariance_gaussian_classier(DTR,LTR,DTE,LTE, prior):
     S = []
-    prior = vcol(numpy.ones(2)*prior)
     D0 = DTR[:, LTR==0]
     D1 = DTR[:, LTR==1]
     mu0 = vcol(D0.mean(1))
@@ -179,7 +176,6 @@ def tied_covariance_gaussian_classier(DTR,LTR,DTE,LTE, prior):
 
 def tied_naive_bayes_classier(DTR,LTR,DTE,LTE, prior):
     S = []
-    prior = vcol(numpy.ones(2)*prior)
     D0 = DTR[:, LTR==0]
     D1 = DTR[:, LTR==1]
     mu0 = vcol(D0.mean(1))
@@ -697,3 +693,17 @@ def correlationsPlot(D, L, desc = ''):
         plt.figure()
         plt.imshow(corrCoeff[i], cmap = cmap[i], interpolation = 'nearest')
         plt.savefig('heatmaps/' + desc + 'heatmap_%d.jpg' % i)
+        
+def plot_minDCF_lr(l, y5, y1, y9, filename, title, defPath = ''):
+    fig = plt.figure()
+    plt.title(title)
+    plt.plot(l, numpy.array(y5), label='minDCF(π~ = 0.5)', color='r')
+    plt.plot(l, numpy.array(y1), label='minDCF(π~ = 0.1)', color='b')
+    plt.plot(l, numpy.array(y9), label='minDCF(π~ = 0.9)', color='g')
+    plt.xscale('log')
+    plt.ylim([0, 1])
+    plt.xlabel('λ')
+    plt.ylabel('minDCF')
+    plt.legend(loc='best')
+    plt.savefig(defPath + 'minDCF/lr_minDCF_%s.jpg' % filename, dpi=300, bbox_inches='tight')
+    plt.close(fig)

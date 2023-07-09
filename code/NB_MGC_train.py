@@ -6,7 +6,7 @@ Created on Tue Jun 13 21:04:52 2023
 """
 
 import numpy
-from Library_gianmarco import naive_bayes_gaussian_classifier, Bayes_risk_min_cost, accuracy, PCA, Ksplit, Z_norm
+from Library_gianmarco import naive_bayes_gaussian_classifier, Bayes_risk_min_cost, PCA, Ksplit, Z_norm
 from library import load
 
 if __name__ == '__main__':
@@ -14,41 +14,73 @@ if __name__ == '__main__':
     L = []
 
     [D, L] = load('../Train.txt')
-    D = Z_norm(D)
     
-    print("Naive Bayes model")
-
-    for m in range(7, 13):
-        print("PCA:", m)
-        P = PCA(D, m)
-        
-        DP = numpy.dot(P.T, D)
-        
-        K = 5
-        folds, labels = Ksplit(DP, L, seed=0, K=K)
-        acc = 0
-        min_cost = 0
-        
-        scores = []
-        LTEs = []
-        for i in range(K):
-            DTR = []
-            LTR = []
-            for j in range(K):
-                if j!=i:
-                    DTR.append(folds[j])
-                    LTR.append(labels[j])
-            DTE = folds[i]
-            LTE = labels[i]
-            DTR = numpy.hstack(DTR)
-            LTR = numpy.hstack(LTR)
-            s, LP = naive_bayes_gaussian_classifier(DTR, LTR, DTE, LTE, 0.5)
-            scores.append(s)
-            LTEs.append(LTE)
-            #min_cost += Bayes_risk_min_cost(0.5, 1, 1, s, LTE)
-        #print("Error rate %.3f" %(acc/K), "%")
-        scores=numpy.hstack(scores)
-        orderedLabels=numpy.hstack(LTEs)
-        min_cost = Bayes_risk_min_cost(0.5, 1, 1, scores, orderedLabels)
-        print("min cost:", min_cost)
+    print("Naive Bayes model RAW features")
+    priors = [0.5, 0.1, 0.9]
+    for p in priors:
+        print("Prior:", p)
+        for m in range(7, 13):
+            print("PCA:", m)
+            P = PCA(D, m)
+            
+            DP = numpy.dot(P.T, D)
+            
+            K = 5
+            folds, labels = Ksplit(DP, L, seed=0, K=K)
+            
+            scores = []
+            LTEs = []
+            for i in range(K):
+                DTR = []
+                LTR = []
+                for j in range(K):
+                    if j!=i:
+                        DTR.append(folds[j])
+                        LTR.append(labels[j])
+                DTE = folds[i]
+                LTE = labels[i]
+                DTR = numpy.hstack(DTR)
+                LTR = numpy.hstack(LTR)
+                s, LP = naive_bayes_gaussian_classifier(DTR, LTR, DTE, LTE, numpy.vstack([p, 1 - p]))
+                scores.append(s)
+                LTEs.append(LTE)
+            scores = numpy.hstack(scores)
+            orderedLabels = numpy.hstack(LTEs)
+            min_cost = Bayes_risk_min_cost(p, 1, 1, scores, orderedLabels)
+            print("min cost: %.3f" %min_cost)
+        print()
+    
+    D = Z_norm(D)
+    print("Naive Bayes model Z-norm features")
+    for p in priors:
+        print("Prior:", p)
+        for m in range(7, 13):
+            print("PCA:", m)
+            P = PCA(D, m)
+            
+            DP = numpy.dot(P.T, D)
+            
+            K = 5
+            folds, labels = Ksplit(DP, L, seed=0, K=K)
+            
+            scores = []
+            LTEs = []
+            for i in range(K):
+                DTR = []
+                LTR = []
+                for j in range(K):
+                    if j!=i:
+                        DTR.append(folds[j])
+                        LTR.append(labels[j])
+                DTE = folds[i]
+                LTE = labels[i]
+                DTR = numpy.hstack(DTR)
+                LTR = numpy.hstack(LTR)
+                s, LP = naive_bayes_gaussian_classifier(DTR, LTR, DTE, LTE, numpy.vstack([p, 1 - p]))
+                scores.append(s)
+                LTEs.append(LTE)
+            scores = numpy.hstack(scores)
+            orderedLabels = numpy.hstack(LTEs)
+            min_cost = Bayes_risk_min_cost(p, 1, 1, scores, orderedLabels)
+            print("min cost: %.3f" %min_cost)
         print()
