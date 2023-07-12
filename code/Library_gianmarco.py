@@ -727,3 +727,35 @@ def plot_minDCF_lr(l, y5, y1, y9, filename, title, defPath = ''):
     plt.legend(loc='best')
     plt.savefig(defPath + 'minDCF/lr_minDCF_%s.jpg' % filename, dpi=300, bbox_inches='tight')
     plt.close(fig)
+
+def plotDCFpoly(x, y, xlabel, m, prior=0.5):
+    fig = plt.figure()
+    plt.plot(x, y[0:len(x)], label='min DCF prior=' + str(prior) + ' - c=0', color='b')
+    plt.plot(x, y[len(x): 2*len(x)], label='min DCF prior=' + str(prior) + ' - c=1', color='r')
+    plt.plot(x, y[2*len(x): 3*len(x)], label='min DCF prior=' + str(prior) + ' - c=10', color='g')
+    plt.plot(x, y[3*len(x): 4*len(x)], label='min DCF prior=' + str(prior) + ' - c=30', color='m')
+
+
+    plt.xlim([1e-5, 1e-1])
+    plt.xscale("log")
+    plt.legend(["min DCF prior=" + str(prior) + " - c=0", "min DCF prior=" + str(prior) + " - c=1", 
+                'min DCF prior=' + str(prior) + ' - c=10', 'min DCF prior=' + str(prior) + ' - c=30'])
+    plt.xlabel(xlabel)
+    plt.ylabel("min DCF")
+    plt.savefig('minDCF/svm_poly_minDCF_%s.jpg' % (str(m) + str(prior)), dpi=300, bbox_inches='tight')
+    plt.close(fig)
+    return
+
+def plot_minDCF_svm_poly(C, y5, y1, y9, filename, title, defPath = ''):
+    fig = plt.figure()
+    plt.title(title)
+    plt.plot(C, numpy.array(y5), label='minDCF(π~ = 0.5)', color='r')
+    plt.plot(C, numpy.array(y1), label='minDCF(π~ = 0.1)', color='b')
+    plt.plot(C, numpy.array(y9), label='minDCF(π~ = 0.9)', color='g')
+    plt.xscale('log')
+    plt.ylim([0, 1])
+    plt.xlabel('c')
+    plt.ylabel('minDCF')
+    plt.legend(loc='best')
+    plt.savefig(defPath + 'minDCF/svm_poly_minDCF_%s.jpg' % filename, dpi=300, bbox_inches='tight')
+    plt.close(fig)
