@@ -207,12 +207,9 @@ def logreg_obj(v, DTR, LTR, l):
     return l/2 * numpy.linalg.norm(w)**2 + (ris/n)    
     
 def logreg(v, DTE):
-    w,b = v[0:-1], v[-1]
+    w, b = v[0:-1], v[-1]
     n = DTE.shape[1]
-    DTE = DTE.T
-    s = numpy.zeros(n)
-    for i in range(n):
-        s[i]=numpy.dot(w.T, DTE[i])+b 
+    s = numpy.dot(w, DTE)+b 
     LP = numpy.zeros(n)
     for i in range(n):
         if s[i] > 0:
@@ -398,15 +395,15 @@ def dual_SVM(DTR, LTR, K, C):
             H[i, j] = LTR[i] * LTR[j] * G[i, j]
     bounds = numpy.full((n, 2), (0, C))
     alpha, dual_loss, _d = scipy.optimize.fmin_l_bfgs_b(LD_alpha, x0=numpy.zeros(DTR.shape[1]), args=(H,), bounds=bounds, factr=1.0)
-    print("Dual loss", -dual_loss)
+    #print("Dual loss", -dual_loss)
     w = numpy.sum(alpha * D * LTR, axis=1)
-    t = 0
-    D = D.T
-    for i in range(n):
-        t += max(0, 1 - LTR[i] * (numpy.dot(w.T, D[i])))
-    primal_loss = 0.5 * (numpy.linalg.norm(w))**2 + C * t
-    print("Primal loss:", primal_loss)
-    print("Dual gap", abs(dual_loss + primal_loss))
+    # t = 0
+    # D = D.T
+    # for i in range(n):
+    #     t += max(0, 1 - LTR[i] * (numpy.dot(w.T, D[i])))
+    # primal_loss = 0.5 * (numpy.linalg.norm(w))**2 + C * t
+    # print("Primal loss:", primal_loss)
+    # print("Dual gap", abs(dual_loss + primal_loss))
     return w
         
 # def LD_alpha(alpha, H, ones):
@@ -437,21 +434,32 @@ def bounds_creator(C, n):
     return bounds
     
 
+# def polynomial_kernel_SVM(DTR, LTR, C, K, d, c, DTE):
+#     LTR = 2 * LTR - 1
+#     n = DTR.shape[1]
+#     H = numpy.zeros((n,n))
+#     for i in range(n):
+#         for j in range(n):
+#             kernel=(numpy.dot(DTR[:, i].T, DTR[:, j]) + c)**d + K**2
+#             H[i, j] = LTR[i] * LTR[j] * kernel
+#     bounds = numpy.full((n, 2), (0, C))
+#     alpha, dual_loss, p = scipy.optimize.fmin_l_bfgs_b(LD_alpha, x0=numpy.zeros(n), args=(H,), bounds=bounds, factr=1.0)
+#     #print("Dual loss", -dual_loss)
+#     kernel=numpy.zeros((n,DTE.shape[1]))
+#     for i in range(n):
+#         for j in range(DTE.shape[1]):
+#             kernel = (numpy.dot(DTR[:, i].T, DTE[:, j]) + c)**d + K**2
+#     return numpy.dot(alpha * LTR, kernel)
+
 def polynomial_kernel_SVM(DTR, LTR, C, K, d, c, DTE):
     LTR = 2 * LTR - 1
     n = DTR.shape[1]
-    H = numpy.zeros((n,n))
-    for i in range(n):
-        for j in range(n):
-            kernel=(numpy.dot(DTR[:, i].T, DTR[:, j]) + c)**d + K**2
-            H[i, j] = LTR[i] * LTR[j] * kernel
+    kernel = (numpy.dot(DTR.T, DTR) + c)**d + K**2
+    H = kernel * vcol(LTR) * vrow(LTR)
     bounds = numpy.full((n, 2), (0, C))
     alpha, dual_loss, p = scipy.optimize.fmin_l_bfgs_b(LD_alpha, x0=numpy.zeros(n), args=(H,), bounds=bounds, factr=1.0)
     #print("Dual loss", -dual_loss)
-    kernel=numpy.zeros((n,DTE.shape[1]))
-    for i in range(n):
-        for j in range(DTE.shape[1]):
-            kernel = (numpy.dot(DTR[:, i].T, DTE[:, j]) + c)**d + K**2
+    kernel = (numpy.dot(DTR.T, DTE) + c)**d + K**2
     return numpy.dot(alpha * LTR, kernel)
 
 def KFunc_RBF(D1, D2, g, K):
@@ -461,7 +469,7 @@ def KFunc_RBF(D1, D2, g, K):
 def RBF_kernel_SVM(DTR, LTR, C, K, gamma, DTE):
     LTR = 2 * LTR - 1
     n = DTR.shape[1]
-    H = numpy.zeros((n,n))
+    #H = numpy.zeros((n,n))
     kernel = KFunc_RBF(DTR, DTR, gamma, K)
     H = kernel * vcol(LTR) * vrow(LTR)
     bounds = numpy.full((n, 2), (0, C))

@@ -1,48 +1,247 @@
-RBF kernel SVM
+RBF kernel SVM RAW features
+Prior: 0.5
 K: 0
 C: 1
 gamma: 1
 PCA: 10
-min cost: 0.25438203617036353
-
+min cost: 0.259
 PCA: 11
-min cost: 0.23211237872409213
-
+min cost: 0.237
 PCA: 12
-min cost: 0.24263928512567484
+min cost: 0.244
 
 K: 0
 C: 1
 gamma: 10
 PCA: 10
-min cost: 0.39749226657755515
-
+min cost: 0.399
 PCA: 11
-min cost: 0.4229667070068398
-
+min cost: 0.423
 PCA: 12
-min cost: 0.4721235808834578
+min cost: 0.472
 
 K: 1
 C: 1
 gamma: 1
 PCA: 10
-min cost: 0.8661959379685777
-
+min cost: 0.976
 PCA: 11
-min cost: 0.9166483870842805
-
+min cost: 0.986
 PCA: 12
-min cost: 0.936431578948158
+min cost: 0.985
 
 K: 1
 C: 1
 gamma: 10
 PCA: 10
-min cost: 1.0
-
+min cost: 1.000
 PCA: 11
-min cost: 1.0
-
+min cost: 1.000
 PCA: 12
-min cost: 1.0
+min cost: 1.000
+
+Prior: 0.1
+K: 0
+C: 1
+gamma: 1
+PCA: 10
+min cost: 0.817
+PCA: 11
+min cost: 0.781
+PCA: 12
+min cost: 0.769
+
+K: 0
+C: 1
+gamma: 10
+PCA: 10
+min cost: 0.820
+PCA: 11
+min cost: 0.780
+PCA: 12
+min cost: 0.770
+
+K: 1
+C: 1
+gamma: 1
+PCA: 10
+min cost: 0.985
+PCA: 11
+min cost: 0.992
+PCA: 12
+min cost: 0.985
+
+K: 1
+C: 1
+gamma: 10
+PCA: 10
+min cost: 1.000
+PCA: 11
+min cost: 1.000
+PCA: 12
+min cost: 1.000
+
+Prior: 0.9
+K: 0
+C: 1
+gamma: 1
+PCA: 10
+min cost: 0.780
+PCA: 11
+min cost: 0.672
+PCA: 12
+min cost: 0.704
+
+K: 0
+C: 1
+gamma: 10
+PCA: 10
+min cost: 0.820
+PCA: 11
+min cost: 0.746
+PCA: 12
+min cost: 0.722
+
+K: 1
+C: 1
+gamma: 1
+PCA: 10
+min cost: 0.990
+PCA: 11
+min cost: 0.990
+PCA: 12
+min cost: 0.993
+
+K: 1
+C: 1
+gamma: 10
+PCA: 10
+min cost: 2.721
+PCA: 11
+min cost: 2.721
+PCA: 12
+min cost: 2.721
+
+RBF kernel SVM Z_norm features
+Prior: 0.5
+K: 0
+C: 1
+gamma: 1
+PCA: 10
+min cost: 0.190
+PCA: 11
+min cost: 0.151
+PCA: 12
+min cost: 0.154
+
+K: 0
+C: 1
+gamma: 10
+PCA: 10
+min cost: 0.295
+PCA: 11
+min cost: 0.261
+PCA: 12
+min cost: 0.257
+
+K: 1
+C: 1
+gamma: 1
+PCA: 10
+min cost: 0.168
+PCA: 11
+min cost: 0.133
+PCA: 12
+min cost: 0.138
+
+K: 1
+C: 1
+gamma: 10
+PCA: 10
+min cost: 0.863
+PCA: 11
+min cost: 0.818
+PCA: 12
+min cost: 0.835
+
+Prior: 0.1
+K: 0
+C: 1
+gamma: 1
+PCA: 10
+min cost: 0.505
+PCA: 11
+min cost: 0.460
+PCA: 12
+min cost: 0.455
+
+K: 0
+C: 1
+gamma: 10
+PCA: 10
+min cost: 0.915
+PCA: 11
+min cost: 0.832
+PCA: 12
+min cost: 0.839
+
+K: 1
+C: 1
+gamma: 1
+PCA: 10
+min cost: 0.465
+PCA: 11
+min cost: 0.425
+PCA: 12
+min cost: 0.420
+
+K: 1
+C: 1
+gamma: 10
+PCA: 10
+min cost: 0.971
+PCA: 11
+min cost: 0.972
+PCA: 12
+min cost: 0.977
+
+Prior: 0.9
+K: 0
+C: 1
+gamma: 1
+PCA: 10
+min cost: 0.443
+PCA: 11
+min cost: 0.326
+PCA: 12
+min cost: 0.323
+
+K: 0
+C: 1
+gamma: 10
+PCA: 10
+min cost: 0.856
+PCA: 11
+min cost: 0.746
+PCA: 12
+min cost: 0.740
+
+K: 1
+C: 1
+gamma: 1
+PCA: 10
+min cost: 0.536
+PCA: 11
+min cost: 0.406
+PCA: 12
+min cost: 0.404
+
+K: 1
+C: 1
+gamma: 10
+PCA: 10
+min cost: 0.974
+PCA: 11
+min cost: 0.965
+PCA: 12
+min cost: 0.969

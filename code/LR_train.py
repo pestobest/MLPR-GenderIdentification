@@ -31,7 +31,6 @@ if __name__ == '__main__':
             folds, labels = Ksplit(DP, L, seed=0, K=K)
             
             for l in l_vec:
-                #print("lambda:", l)
                 scores = []
                 LTEs = []
                 for i in range(K):
