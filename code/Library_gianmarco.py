@@ -239,15 +239,27 @@ def Ksplit(D, L, seed=0, K=3):
         labels.append(L[idx[(i*numberOfSamplesInFold): ((i+1)*(numberOfSamplesInFold))]])
     return folds, labels
    
-def logreg_obj_wrap(DTR, LTR, l):
+# def logreg_obj_wrap(DTR, LTR, l):
+#     def logreg_obj(v):
+#         w, b = v[0:-1], v[-1]
+#         n = DTR.shape[1]
+#         ris = 0
+#         for i in range(n):
+#             z = 2*LTR[i] - 1
+#             ris += numpy.logaddexp(0, -z*(numpy.dot(w.T, DTR.T[i])+b))
+#         return l/2 * numpy.linalg.norm(w)**2 + (ris/n)
+#     return logreg_obj
+
+def logreg_obj_wrapper(D, L, l, pi):
+    Z = (L * 2) - 1
+    M = D.shape[0]
+
     def logreg_obj(v):
-        w, b = v[0:-1], v[-1]
-        n = DTR.shape[1]
-        ris = 0
-        for i in range(n):
-            z = 2*LTR[i] - 1
-            ris += numpy.logaddexp(0, -z*(numpy.dot(w.T, DTR.T[i])+b))
-        return l/2 * numpy.linalg.norm(w)**2 + (ris/n)
+        w, b = mcol(v[0:M]), v[-1]
+        c1 = 0.5 * l * (numpy.linalg.norm(w) ** 2)
+        c2 = ((pi) * (L[L == 1].shape[0] ** -1)) * numpy.logaddexp(0, -Z[Z == 1] * (numpy.dot(w.T, D[:, L == 1]) + b)).sum()
+        c3 = ((1 - pi) * (L[L == 0].shape[0] ** -1)) * numpy.logaddexp(0, -Z[Z == -1] * (numpy.dot(w.T, D[:, L == 0]) + b)).sum()
+        return c1 + c2 + c3
     return logreg_obj
 
 def logreg_obj_wrap_prof(DTR, LTR, l):
