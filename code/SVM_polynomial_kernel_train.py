@@ -19,7 +19,7 @@ if __name__ == '__main__':
     vect_C = numpy.logspace(-5, -1, num=15)
     d = 2
     vect_c = [0, 1, 10, 30]
-    """ print("Polynomial kernel SVM RAW features")
+    print("Polynomial kernel SVM RAW features")
     for p in priors:
         print("Prior:", p)
         for m in range(10, 13):
@@ -56,7 +56,7 @@ if __name__ == '__main__':
                     min_cost = Bayes_risk_min_cost(p, 1, 1, scores, orderedLabels)
                     print("min cost: %.3f" %min_cost)
                     minDCs.append(min_cost)
-            plotDCFpoly(vect_C, minDCs, "C", m, '', p) """
+            plotDCFpoly(vect_C, minDCs, "C", m, 'RAW', p)
             #plot_minDCF_svm_poly(vect_C, minDCs[0:len(vect_C)], minDCs[len(vect_C):2*len(vect_C)], minDCs[2*len(vect_C):], filename="RAW_PCA" + str(m), title="RAW_MinDCF_PCA" + str(m))
               
     
@@ -98,5 +98,5 @@ if __name__ == '__main__':
                     min_cost = Bayes_risk_min_cost(p, 1, 1, scores, orderedLabels)
                     print("min cost: %.3f" %min_cost)
                     minDCs.append(min_cost)
-            plotDCFpoly(vect_C, minDCs, "C", m, '_znorm', p)
+            plotDCFpoly(vect_C, minDCs, "C", m, 'Z_norm', p)
             #plot_minDCF_svm_poly(vect_C, minDCs[0:len(vect_C)], minDCs[len(vect_C):2*len(vect_C)], minDCs[2*len(vect_C):], filename="RAW_PCA" + str(m), title="RAW_MinDCF_PCA" + str(m))
