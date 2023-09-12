@@ -759,3 +759,19 @@ def plot_minDCF_svm_poly(C, y5, y1, y9, filename, title, defPath = ''):
     plt.legend(loc='best')
     plt.savefig(defPath + 'minDCF/svm_poly_minDCF_%s.jpg' % filename, dpi=300, bbox_inches='tight')
     plt.close(fig)
+    
+def plotDCFRBF(x, y, xlabel, m, prior=0.5):
+    fig = plt.figure()
+    plt.plot(x, y[0:len(x)], label='min DCF prior=' + str(prior) + ' - logγ=-5', color='b')
+    plt.plot(x, y[len(x): 2*len(x)], label='min DCF prior=' + str(prior) + ' - logγ=-4', color='r')
+    plt.plot(x, y[2*len(x): 3*len(x)], label='min DCF prior=' + str(prior) + ' - logγ=-3', color='g')
+    
+    plt.xlim([min(x), max(x)])
+    plt.xscale("log")
+    plt.legend(["min DCF prior=" + str(prior) + " - logγ=-5", "min DCF prior=" + str(prior) + " - logγ=-4", 
+                "min DCF prior=" + str(prior) + " - logγ=-3"])
+    
+    plt.xlabel(xlabel)
+    plt.ylabel("min DCF")
+    plt.savefig('minDCF/svm_RBF_minDCF_%s.jpg' % (str(m) + str(prior)), dpi=300, bbox_inches='tight')
+    plt.close(fig)
