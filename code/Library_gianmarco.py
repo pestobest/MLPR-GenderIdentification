@@ -547,38 +547,32 @@ def logpdf_GMM(X, gmm):
     M = len(gmm)
     S = numpy.zeros((M, X.shape[1]))
     for m in range(M):
-        S[m] = logpdf_GAU_ND_fast(X, gmm[m][1], gmm[m][2])
+        S[m, :] = logpdf_GAU_ND_fast(X, gmm[m][1], gmm[m][2])
     for g in range(M):
         S[g, :] += numpy.log(gmm[g][0])
     logdens = scipy.special.logsumexp(S, axis=0)
     return S, logdens
 
 def E_step(S, logdens):
-    for i in range(S.shape[0]):
-        S[i] = numpy.exp(S[i] - logdens)
-    return S
+    return numpy.exp(S - logdens)
 
-def M_step(E, X):
+def M_step(E, X, psi = 0.01):
     M, N = E.shape
-    Zg = numpy.sum(E, axis=1)
-    Fg = []
-    for i in range(M):
-        sm = 0
-        for j in range(N):
-            sm += E[i][j] * mcol(X[:, j])
-        Fg.append(sm)
-    Sg = []
-    for i in range(M):
-        sm = 0
-        for j in range(N):
-            x = mcol(X[:, j])
-            sm += E[i][j] * numpy.dot(x, x.T)
-        Sg.append(sm)
     new_GMM = []
+    Zg_vec = numpy.zeros(M)
     for i in range(M):
-        mu = mcol(Fg[i] / Zg[i])  
-        cov = Sg[i] / Zg[i] - numpy.dot(mu, mu.T)
-        new_GMM.append([Zg[i] / sum(Zg), mu, cov])
+        gamma = E[i, :]
+        Zg = gamma.sum()
+        Zg_vec[i] = Zg
+        Fg = (vrow(gamma) * X).sum(1)
+        Sg = numpy.dot(X, (vrow(gamma) * X).T)
+        w = Zg / X.shape[1]
+        mu = vcol(Fg / Zg)
+        sigma = Sg / Zg - numpy.dot(mu, mu.T)
+        U, s, _ = numpy.linalg.svd(sigma)
+        s[s<psi] = psi
+        covNew = numpy.dot(U, mcol(s)*U.T)
+        new_GMM.append([w, mu, covNew])
     return new_GMM
 
 def GMM_EM_estimation(X, gmm, delta):
@@ -588,7 +582,7 @@ def GMM_EM_estimation(X, gmm, delta):
     new_GMM = M_step(E, X)
     S_new, logdens_new = logpdf_GMM(X, new_GMM)
     while((logdens_new.mean() - logdens.mean()) > delta):
-        print("old logs avg", logdens.mean(), "new logs avg", logdens_new.mean())
+        #print("old logs avg", logdens.mean(), "new logs avg", logdens_new.mean())
         referenceGMM = new_GMM
         S, logdens = S_new, logdens_new
         E = E_step(S, logdens)
@@ -596,51 +590,50 @@ def GMM_EM_estimation(X, gmm, delta):
         S_new, logdens_new = logpdf_GMM(X, new_GMM)  
     return referenceGMM
 
-def LBG_algorithm(gmm, alpha):
-    new_gmm = []
-    for e in gmm:
-        Sigma_g = e[2]    
-        U, s, Vh = numpy.linalg.svd(Sigma_g)
-        d = U[:, 0:1] * s[0]**0.5 * alpha
-        line1 = []
-        line2 = []
-        mu = e[1]
-        line1.append(e[0]/2)
-        line1.append(mu-d)
-        line1.append(Sigma_g)
-        new_gmm.append(line1)
-        line2.append(e[0]/2)
-        line2.append(mu+d)
-        line2.append(Sigma_g)
-        new_gmm.append(line2)
-    return new_gmm
+def LBG_algorithm(iterations, D, gmm, alpha=0.1, psi = 0.01):
+    U, s, _ = numpy.linalg.svd(gmm[0][2])
+    s[s<psi] = psi
+    gmm[0][2] = numpy.dot(U, mcol(s)*U.T)
+    start_gmm = GMM_EM_estimation(D, gmm, 10**-6)
+    
+    for i in range(iterations):
+        new_gmm = []
+        for e in start_gmm:
+            Sigma_g = e[2]    
+            U, s, Vh = numpy.linalg.svd(Sigma_g)
+            d = U[:, 0:1] * s[0]**0.5 * alpha
+            line1 = []
+            line2 = []
+            mu = e[1]
+            line1.append(e[0]/2)
+            line1.append(mu-d)
+            line1.append(Sigma_g)
+            new_gmm.append(line1)
+            line2.append(e[0]/2)
+            line2.append(mu+d)
+            line2.append(Sigma_g)
+            new_gmm.append(line2)
+        start_gmm = GMM_EM_estimation(D, new_gmm, 10**-6)
+    return start_gmm
 
-def M_step_diagonal(E, X):
-    psi = 0.01
+def M_step_diagonal(E, X, psi = 0.01):
     M, N = E.shape
-    Zg = numpy.sum(E, axis=1)
-    Fg = []
-    for i in range(M):
-        sm = 0
-        for j in range(N):
-            sm += E[i][j] * mcol(X[:, j])
-        Fg.append(sm)
-    Sg = []
-    for i in range(M):
-        sm = 0
-        for j in range(N):
-            x = mcol(X[:, j])
-            sm += E[i][j] * numpy.dot(x, x.T)
-        Sg.append(sm)
     new_GMM = []
+    Zg_vec = numpy.zeros(M)
     for i in range(M):
-        mu = mcol(Fg[i] / Zg[i])  
-        cov = Sg[i] / Zg[i] - numpy.dot(mu, mu.T)
-        covNew = cov * numpy.eye(cov.shape[0])
+        gamma = E[i, :]
+        Zg = gamma.sum()
+        Zg_vec[i] = Zg
+        Fg = (vrow(gamma) * X).sum(1)
+        Sg = numpy.dot(X, (vrow(gamma) * X).T)
+        w = Zg / X.shape[1]
+        mu = vcol(Fg / Zg)
+        sigma = Sg / Zg - numpy.dot(mu, mu.T)
+        covNew = sigma * numpy.eye(sigma.shape[0])
         U, s, _ = numpy.linalg.svd(covNew)
         s[s<psi] = psi
         covNew = numpy.dot(U, mcol(s)*U.T)
-        new_GMM.append([Zg[i] / sum(Zg), mu, covNew])
+        new_GMM.append([w, mu, covNew])
     return new_GMM
         
 def GMM_EM_estimation_diagonal(X, gmm, delta):
@@ -651,41 +644,62 @@ def GMM_EM_estimation_diagonal(X, gmm, delta):
         S_new, logdens_new=logpdf_GMM(X, new_GMM)
         if((logdens_new.mean() - logdens.mean()) < delta):
             referenceGMM = new_GMM
-            print("Final average log-likelihood:", logdens_new.mean())
+            #print("Final average log-likelihood:", logdens_new.mean())
             break      
         referenceGMM = new_GMM
         S, logdens=S_new, logdens_new
     return referenceGMM
 
-def M_step_tied(E, X):
-    psi = 0.01
+def LBG_algorithm_diagonal(iterations, D, gmm, alpha=0.1, psi = 0.01):
+    U, s, _ = numpy.linalg.svd(gmm[0][2])
+    s[s<psi] = psi
+    gmm[0][2] = numpy.dot(U, mcol(s)*U.T)
+    start_gmm = GMM_EM_estimation(D, gmm, 10**-6)
+    
+    for i in range(iterations):
+        new_gmm = []
+        for e in start_gmm:
+            Sigma_g = e[2]    
+            U, s, Vh = numpy.linalg.svd(Sigma_g)
+            d = U[:, 0:1] * s[0]**0.5 * alpha
+            line1 = []
+            line2 = []
+            mu = e[1]
+            line1.append(e[0]/2)
+            line1.append(mu-d)
+            line1.append(Sigma_g)
+            new_gmm.append(line1)
+            line2.append(e[0]/2)
+            line2.append(mu+d)
+            line2.append(Sigma_g)
+            new_gmm.append(line2)
+        start_gmm = GMM_EM_estimation_diagonal(D, new_gmm, 10**-6)
+    return start_gmm
+
+
+def M_step_tied(E, X, psi = 0.01):
     M, N = E.shape
-    Zg = numpy.sum(E, axis=1)
-    Fg = []
-    for i in range(M):
-        sm = 0
-        for j in range(N):
-            sm += E[i][j] * mcol(X[:, j])
-        Fg.append(sm)
-    Sg = []
-    for i in range(M):
-        sm = 0
-        for j in range(N):
-            x = mcol(X[:, j])
-            sm += E[i][j] * numpy.dot(x, x.T)
-        Sg.append(sm)
     new_GMM = []
-    covNew = 0
+    Zg_vec = numpy.zeros(M)
+    w_vec = numpy.zeros(M)
+    mu_vec = []
+    sigma = 0
     for i in range(M):
-        mu = mcol(Fg[i] / Zg[i])
-        covNew += Zg[i] * (Sg[i] / Zg[i] - numpy.dot(mu, mu.T))
-    covNew /= N
-    U, s, _ = numpy.linalg.svd(covNew)
+        gamma = E[i, :]
+        Zg = gamma.sum()
+        Zg_vec[i] = Zg
+        Fg = (vrow(gamma) * X).sum(1)
+        Sg = numpy.dot(X, (vrow(gamma) * X).T)
+        w_vec[i] = Zg / X.shape[1]
+        mu_vec.append(vcol(Fg / Zg))
+        sigma += Zg * (Sg / Zg - numpy.dot(mu_vec[i], mu_vec[i].T))    
+    
+    sigma /= N
+    U, s, _ = numpy.linalg.svd(sigma)
     s[s<psi] = psi
     covNew = numpy.dot(U, mcol(s)*U.T)
     for i in range(M):
-        mu = mcol(Fg[i] / Zg[i])  
-        new_GMM.append([Zg[i] / sum(Zg), mu, covNew])
+        new_GMM.append([w_vec[i], mu_vec[i], covNew])
     return new_GMM
         
 def GMM_EM_estimation_tied(X, gmm, delta):
@@ -696,11 +710,55 @@ def GMM_EM_estimation_tied(X, gmm, delta):
         S_new, logdens_new=logpdf_GMM(X, new_GMM)
         if((logdens_new.mean() - logdens.mean()) < delta):
             referenceGMM = new_GMM
-            print("Final average log-likelihood:", logdens_new.mean())
+            #print("Final average log-likelihood:", logdens_new.mean())
             break      
         referenceGMM = new_GMM
         S, logdens=S_new, logdens_new
     return referenceGMM
+
+def LBG_algorithm_tied(iterations, D, gmm, alpha=0.1, psi = 0.01):
+    U, s, _ = numpy.linalg.svd(gmm[0][2])
+    s[s<psi] = psi
+    gmm[0][2] = numpy.dot(U, mcol(s)*U.T)
+    start_gmm = GMM_EM_estimation(D, gmm, 10**-6)
+    
+    for i in range(iterations):
+        new_gmm = []
+        for e in start_gmm:
+            Sigma_g = e[2]    
+            U, s, Vh = numpy.linalg.svd(Sigma_g)
+            d = U[:, 0:1] * s[0]**0.5 * alpha
+            line1 = []
+            line2 = []
+            mu = e[1]
+            line1.append(e[0]/2)
+            line1.append(mu-d)
+            line1.append(Sigma_g)
+            new_gmm.append(line1)
+            line2.append(e[0]/2)
+            line2.append(mu+d)
+            line2.append(Sigma_g)
+            new_gmm.append(line2)
+        start_gmm = GMM_EM_estimation_tied(D, new_gmm, 10**-6)
+    return start_gmm
+    
+def plot_min_cdf_error_gaussian_mixture_models(model_name, first_dcf, second_dcf, first_label, second_label):
+
+    plt.figure()
+    plt.title(model_name)
+    plt.xlabel("GMM components")
+    plt.ylabel("minDCF")
+    iterations = range(7)
+    x_axis = numpy.arange(len(iterations))
+    bounds = numpy.array(iterations)
+    plt.bar(x_axis + 0.00, first_dcf, width=0.25, linewidth=1.0, edgecolor='black', color="Red", label=first_label)
+    plt.bar(x_axis + 0.25, second_dcf, width=0.25, linewidth=1.0, edgecolor='black', color="Orange", label=second_label)
+
+    plt.xticks([r + 0.125 for r in range(len(bounds))], [2**i for i in bounds])
+    plt.legend()
+
+    plt.savefig("minDCF/" + model_name + "_" + first_label + "_" + second_label + ".png")
+    plt.close()
 
 def correlationsPlot(D, L, desc = ''):
     cmap = ['Greys', 'Reds', 'Blues']

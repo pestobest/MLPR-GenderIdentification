@@ -5,7 +5,7 @@ Created on Tue Sep 12 23:03:27 2023
 @author: gianm
 """
 import numpy
-from Library_gianmarco import LBG_algorithm, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, logpdf_GMM, plot_min_cdf_error_gaussian_mixture_models
+from Library_gianmarco import LBG_algorithm_tied, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, logpdf_GMM, plot_min_cdf_error_gaussian_mixture_models
 from library import load
 
 if __name__ == "__main__":
@@ -53,9 +53,9 @@ if __name__ == "__main__":
         
             GMM_D1 = [[1, mu_D1, cov_D1]]
             
-            EM_GMM_D0 =LBG_algorithm(it, D0, GMM_D0)
+            EM_GMM_D0 =LBG_algorithm_tied(it, D0, GMM_D0)
             
-            EM_GMM_D1 =LBG_algorithm(it, D1, GMM_D1)
+            EM_GMM_D1 =LBG_algorithm_tied(it, D1, GMM_D1)
         
             _, logdens_D0=logpdf_GMM(DTE, EM_GMM_D0)
         
@@ -112,9 +112,9 @@ if __name__ == "__main__":
         
             GMM_D1 = [[1, mu_D1, cov_D1]]
             
-            EM_GMM_D0 =LBG_algorithm(it, D0, GMM_D0)
+            EM_GMM_D0 =LBG_algorithm_tied(it, D0, GMM_D0)
             
-            EM_GMM_D1 =LBG_algorithm(it, D1, GMM_D1)
+            EM_GMM_D1 =LBG_algorithm_tied(it, D1, GMM_D1)
         
             _, logdens_D0=logpdf_GMM(DTE, EM_GMM_D0)
         
@@ -131,7 +131,7 @@ if __name__ == "__main__":
         print("prior:", 0.9, "min cost: %.3f" %Bayes_risk_min_cost(0.9, 1, 1, scores, orderedLabels))
         print()
     
-    plot_min_cdf_error_gaussian_mixture_models("GMM", min_cost_vec, min_cost_vec_znorm, "RAW", "Z-Norm")
+    plot_min_cdf_error_gaussian_mixture_models("GMM tied", min_cost_vec, min_cost_vec_znorm, "RAW", "Z-Norm")
     
     print("PCA 12")
     
@@ -177,9 +177,9 @@ if __name__ == "__main__":
         
             GMM_D1 = [[1, mu_D1, cov_D1]]
             
-            EM_GMM_D0 =LBG_algorithm(it, D0, GMM_D0)
+            EM_GMM_D0 =LBG_algorithm_tied(it, D0, GMM_D0)
             
-            EM_GMM_D1 =LBG_algorithm(it, D1, GMM_D1)
+            EM_GMM_D1 =LBG_algorithm_tied(it, D1, GMM_D1)
         
             _, logdens_D0=logpdf_GMM(DTE, EM_GMM_D0)
         
@@ -236,9 +236,9 @@ if __name__ == "__main__":
         
             GMM_D1 = [[1, mu_D1, cov_D1]]
             
-            EM_GMM_D0 =LBG_algorithm(it, D0, GMM_D0)
+            EM_GMM_D0 =LBG_algorithm_tied(it, D0, GMM_D0)
             
-            EM_GMM_D1 =LBG_algorithm(it, D1, GMM_D1)
+            EM_GMM_D1 =LBG_algorithm_tied(it, D1, GMM_D1)
         
             _, logdens_D0=logpdf_GMM(DTE, EM_GMM_D0)
         
@@ -255,5 +255,5 @@ if __name__ == "__main__":
         print("prior:", 0.9, "min cost: %.3f" %Bayes_risk_min_cost(0.9, 1, 1, scores, orderedLabels))
         print()
     
-    plot_min_cdf_error_gaussian_mixture_models("GMM PCA-12", min_cost_vec, min_cost_vec_znorm, "RAW", "Z-Norm")
+    plot_min_cdf_error_gaussian_mixture_models("GMM tied PCA-12", min_cost_vec, min_cost_vec_znorm, "RAW", "Z-Norm")
 
