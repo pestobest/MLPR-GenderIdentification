@@ -728,7 +728,7 @@ def plot_minDCF_lr(l, y5, y1, y9, filename, title, defPath = ''):
     plt.savefig(defPath + 'minDCF/lr_minDCF_%s.jpg' % filename, dpi=300, bbox_inches='tight')
     plt.close(fig)
 
-def plotDCFpoly(x, y, xlabel, m, prior=0.5):
+def plotDCFpoly(x, y, xlabel, m, variant, prior=0.5):
     fig = plt.figure()
     plt.plot(x, y[0:len(x)], label='min DCF prior=' + str(prior) + ' - c=0', color='b')
     plt.plot(x, y[len(x): 2*len(x)], label='min DCF prior=' + str(prior) + ' - c=1', color='r')
@@ -742,7 +742,7 @@ def plotDCFpoly(x, y, xlabel, m, prior=0.5):
                 'min DCF prior=' + str(prior) + ' - c=10', 'min DCF prior=' + str(prior) + ' - c=30'])
     plt.xlabel(xlabel)
     plt.ylabel("min DCF")
-    plt.savefig('minDCF/svm_poly_minDCF_%s.jpg' % (str(m) + str(prior)), dpi=300, bbox_inches='tight')
+    plt.savefig('minDCF/svm_poly_minDCF_%s_PCA%s_prior%s.jpg' % (variant, str(m), str(prior)), dpi=300, bbox_inches='tight')
     plt.close(fig)
     return
 
