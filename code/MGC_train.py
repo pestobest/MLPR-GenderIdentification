@@ -49,6 +49,32 @@ if __name__ == '__main__':
             orderedLabels = numpy.hstack(LTEs)
             min_cost = Bayes_risk_min_cost(p, 1, 1, scores, orderedLabels)
             print("min cost: %.3f" %min_cost)
+
+        print("RAW")
+        K = 5
+        folds, labels = Ksplit(D, L, seed=0, K=K)
+        
+        scores = []
+        LTEs = []
+        for i in range(K):
+            DTR = []
+            LTR = []
+            for j in range(K):
+                if j!=i:
+                    DTR.append(folds[j])
+                    LTR.append(labels[j])
+            DTE = folds[i]
+            LTE = labels[i]
+            DTR = numpy.hstack(DTR)
+            LTR = numpy.hstack(LTR)
+            s, LP = multivariete_gaussian_classifier(DTR, LTR, DTE, LTE, numpy.vstack([p, 1 - p]))
+            scores.append(s)
+            LTEs.append(LTE)
+        scores = numpy.hstack(scores)
+        orderedLabels = numpy.hstack(LTEs)
+        min_cost = Bayes_risk_min_cost(p, 1, 1, scores, orderedLabels)
+        print("min cost: %.3f" %min_cost)
+
         print()
             
     D = Z_norm(D)
@@ -87,4 +113,30 @@ if __name__ == '__main__':
             orderedLabels = numpy.hstack(LTEs)
             min_cost = Bayes_risk_min_cost(p, 1, 1, scores, orderedLabels)
             print("min cost: %.3f" %min_cost)
+
+        print("RAW")
+        K = 5
+        folds, labels = Ksplit(D, L, seed=0, K=K)
+        
+        scores = []
+        LTEs = []
+        for i in range(K):
+            DTR = []
+            LTR = []
+            for j in range(K):
+                if j!=i:
+                    DTR.append(folds[j])
+                    LTR.append(labels[j])
+            DTE = folds[i]
+            LTE = labels[i]
+            DTR = numpy.hstack(DTR)
+            LTR = numpy.hstack(LTR)
+            s, LP = multivariete_gaussian_classifier(DTR, LTR, DTE, LTE, numpy.vstack([p, 1 - p]))
+            scores.append(s)
+            LTEs.append(LTE)
+        scores = numpy.hstack(scores)
+        orderedLabels = numpy.hstack(LTEs)
+        min_cost = Bayes_risk_min_cost(p, 1, 1, scores, orderedLabels)
+        print("min cost: %.3f" %min_cost)
+        
         print()
