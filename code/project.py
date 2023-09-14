@@ -15,14 +15,14 @@ def load(fname):
     with open(fname, mode = 'r', encoding = 'utf-8') as f:
         for line in f:
             values = line.strip().split(',')
-            data = numpy.array(values[:9], dtype=numpy.float32).reshape((9, 1))
+            data = numpy.array(values[:12], dtype=numpy.float32).reshape((12, 1))
             label = int(values[-1])
             dataList.append(data)
             labelsList.append(label)
 
     return numpy.hstack(dataList), numpy.array(labelsList, dtype=numpy.int32)
 
-def hist(D, L, spath):
+def hist(D, L, spath, m):
 
     M0 = (L==0)
     M1 = (L==1)
@@ -30,7 +30,9 @@ def hist(D, L, spath):
     D0 = D[:, M0]
     D1 = D[:, M1]
 
-    for dIdx in range(12):
+    print(D.shape)
+
+    for dIdx in range(m):
         plot.figure()
         plot.hist(D0[dIdx, :], bins = 30, density = True, alpha = 0.4, label = 'Male')
         plot.hist(D1[dIdx, :], bins = 30, density = True, alpha = 0.4, label = 'Female')
@@ -281,12 +283,15 @@ if __name__ == '__main__':
 
     [D, L] = load('../Train.txt')
 
-    hist(D, L, './initialGraphs/')
-    scatter(D, L, './initialGraphs/')
+    hist(D, L, './initialGraphs/', 12)
+    scatter(D, L, './initialGraphs/', 12)
     
     mu = vcol(D.mean(1))
 
     DC = D - mu
+
+    hist(D, L, './modifiedGraphsTest/', 12)
+    scatter(D, L, './modifiedGraphsTest/', 12)
 
     C = 0
     dotDC = numpy.dot(D, D.T)
@@ -294,7 +299,6 @@ if __name__ == '__main__':
 
     U, s, Vh = numpy.linalg.svd(C)
 
-    m = 3
     num = 0
     den = 0
 
@@ -303,26 +307,30 @@ if __name__ == '__main__':
 
         DP = numpy.dot(P.T, D)
         
+        hist(DP, L, "./modifiedGraphsPCA_%s/" % m, m)
         scatter(DP, L, "./modifiedGraphsPCA_%s/" % m, m)
 
     [Sb, Sw] = computeCovarianceMatrices(D, L)
 
     s, U = scipy.linalg.eigh(Sb, Sw)
-    m=11
+    
     W = U[:, ::-1][:, 0:m]
     UW, _, _ = numpy.linalg.svd(W)
-    U = UW[:, 0:m]
 
-    U, s, _ = numpy.linalg.svd(Sw)
-    P1 = numpy.dot(numpy.dot(U, numpy.diag(1.0/(s**0.5))), U.T)
+    for m in range(2, 5):
+      U = UW[:, 0:m]
 
-    Sbt = numpy.dot(numpy.dot(P1, Sb), P1.T)
+      U, s, _ = numpy.linalg.svd(Sw)
+      P1 = numpy.dot(numpy.dot(U, numpy.diag(1.0/(s**0.5))), U.T)
 
-    s, V = scipy.linalg.eigh(Sbt)
-    P2 = V[:, ::-1][:, 0:m]
+      Sbt = numpy.dot(numpy.dot(P1, Sb), P1.T)
 
-    W = numpy.dot(P1.T, P2)
+      s, V = scipy.linalg.eigh(Sbt)
+      P2 = V[:, ::-1][:, 0:m]
 
-    DP = numpy.dot(W.T, D)
+      W = numpy.dot(P1.T, P2)
 
-    scatter(DP, L, "./modifiedGraphsLDA_%s/" % m, m)
+      DP = numpy.dot(W.T, D)
+
+      hist(DP, L, "./modifiedGraphsLDA_%s/" % m, m)
+      scatter(DP, L, "./modifiedGraphsLDA_%s/" % m, m)
