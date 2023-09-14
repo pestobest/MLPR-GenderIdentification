@@ -30,8 +30,6 @@ def hist(D, L, spath, m):
     D0 = D[:, M0]
     D1 = D[:, M1]
 
-    print(D.shape)
-
     for dIdx in range(m):
         plot.figure()
         plot.hist(D0[dIdx, :], bins = 30, density = True, alpha = 0.4, label = 'Male')
