@@ -1,0 +1,146 @@
+num iterations: 1
+prior: 0.5 min cost: 0.113
+prior: 0.1 min cost: 0.297
+prior: 0.9 min cost: 0.350
+
+num iterations: 2
+prior: 0.5 min cost: 0.077
+prior: 0.1 min cost: 0.245
+prior: 0.9 min cost: 0.209
+
+num iterations: 4
+prior: 0.5 min cost: 0.071
+prior: 0.1 min cost: 0.201
+prior: 0.9 min cost: 0.204
+
+num iterations: 8
+prior: 0.5 min cost: 0.093
+prior: 0.1 min cost: 0.278
+prior: 0.9 min cost: 0.238
+
+num iterations: 16
+prior: 0.5 min cost: 0.147
+prior: 0.1 min cost: 0.492
+prior: 0.9 min cost: 0.312
+
+num iterations: 32
+prior: 0.5 min cost: 0.299
+prior: 0.1 min cost: 0.812
+prior: 0.9 min cost: 0.493
+
+num iterations: 64
+c:\users\gianm\onedrive\desktop\progetto ml&pr - copia\mlpr-genderidentification\code\gmm_train.py:63: RuntimeWarning: divide by zero encountered in divide
+  s=numpy.log(numpy.exp(logdens_D1)/ numpy.exp(logdens_D0))
+prior: 0.5 min cost: 0.644
+prior: 0.1 min cost: 0.982
+prior: 0.9 min cost: 0.832
+
+Z-norm
+num iterations: 1
+prior: 0.5 min cost: 0.113
+prior: 0.1 min cost: 0.297
+prior: 0.9 min cost: 0.350
+
+num iterations: 2
+prior: 0.5 min cost: 0.077
+prior: 0.1 min cost: 0.245
+prior: 0.9 min cost: 0.209
+
+num iterations: 4
+prior: 0.5 min cost: 0.071
+prior: 0.1 min cost: 0.201
+prior: 0.9 min cost: 0.204
+
+num iterations: 8
+prior: 0.5 min cost: 0.090
+prior: 0.1 min cost: 0.264
+prior: 0.9 min cost: 0.247
+
+num iterations: 16
+prior: 0.5 min cost: 0.123
+prior: 0.1 min cost: 0.395
+prior: 0.9 min cost: 0.269
+
+num iterations: 32
+prior: 0.5 min cost: 0.169
+prior: 0.1 min cost: 0.487
+prior: 0.9 min cost: 0.373
+
+num iterations: 64
+prior: 0.5 min cost: 0.242
+prior: 0.1 min cost: 0.728
+prior: 0.9 min cost: 0.513
+
+PCA 12
+num iterations: 1
+prior: 0.5 min cost: 0.113
+prior: 0.1 min cost: 0.297
+prior: 0.9 min cost: 0.350
+
+num iterations: 2
+prior: 0.5 min cost: 0.077
+prior: 0.1 min cost: 0.245
+prior: 0.9 min cost: 0.209
+
+num iterations: 4
+prior: 0.5 min cost: 0.071
+prior: 0.1 min cost: 0.201
+prior: 0.9 min cost: 0.204
+
+num iterations: 8
+prior: 0.5 min cost: 0.093
+prior: 0.1 min cost: 0.278
+prior: 0.9 min cost: 0.238
+
+num iterations: 16
+prior: 0.5 min cost: 0.147
+prior: 0.1 min cost: 0.492
+prior: 0.9 min cost: 0.312
+
+num iterations: 32
+prior: 0.5 min cost: 0.299
+prior: 0.1 min cost: 0.812
+prior: 0.9 min cost: 0.493
+
+num iterations: 64
+c:\users\gianm\onedrive\desktop\progetto ml&pr - copia\mlpr-genderidentification\code\gmm_train.py:187: RuntimeWarning: divide by zero encountered in divide
+  s=numpy.log(numpy.exp(logdens_D1)/ numpy.exp(logdens_D0))
+prior: 0.5 min cost: 0.644
+prior: 0.1 min cost: 0.982
+prior: 0.9 min cost: 0.832
+
+Z-norm
+num iterations: 1
+prior: 0.5 min cost: 0.113
+prior: 0.1 min cost: 0.297
+prior: 0.9 min cost: 0.350
+
+num iterations: 2
+prior: 0.5 min cost: 0.087
+prior: 0.1 min cost: 0.244
+prior: 0.9 min cost: 0.211
+
+num iterations: 4
+prior: 0.5 min cost: 0.072
+prior: 0.1 min cost: 0.208
+prior: 0.9 min cost: 0.213
+
+num iterations: 8
+prior: 0.5 min cost: 0.098
+prior: 0.1 min cost: 0.289
+prior: 0.9 min cost: 0.268
+
+num iterations: 16
+prior: 0.5 min cost: 0.157
+prior: 0.1 min cost: 0.452
+prior: 0.9 min cost: 0.351
+
+num iterations: 32
+prior: 0.5 min cost: 0.236
+prior: 0.1 min cost: 0.670
+prior: 0.9 min cost: 0.496
+
+num iterations: 64
+prior: 0.5 min cost: 0.387
+prior: 0.1 min cost: 0.840
+prior: 0.9 min cost: 0.697
