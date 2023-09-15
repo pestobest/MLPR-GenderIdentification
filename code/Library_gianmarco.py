@@ -396,19 +396,32 @@ def ROC(LLRs, labels):
     plt.plot(numpy.array(FPR), numpy.array(TPR))
     plt.show()
     
-def dual_SVM(DTR, LTR, K, C):
-    LTR = 2 * LTR - 1
+def compute_weights(C, LTR, prior):
+    bounds = numpy.zeros((LTR.shape[0]))
+    empirical_pi_t = (LTR == 1).sum() / LTR.shape[0]
+    bounds[LTR == 1] = C * prior[1] / empirical_pi_t
+    bounds[LTR == 0] = C * prior[0] / (1 - empirical_pi_t)
+    return list(zip(numpy.zeros(LTR.shape[0]), bounds))
+    
+def dual_SVM(DTR, LTR, K, C, priors=[0.5, 0.5]):
+    Z = 2 * LTR - 1
     D = numpy.vstack((DTR, numpy.zeros(DTR.shape[1]) + K))
     G = numpy.dot(D.T, D)
-    n = DTR.shape[1]
-    H = numpy.zeros((n,n))
-    for i in range(n):
-        for j in range(n):
-            H[i, j] = LTR[i] * LTR[j] * G[i, j]
-    bounds = numpy.full((n, 2), (0, C))
-    alpha, dual_loss, _d = scipy.optimize.fmin_l_bfgs_b(LD_alpha, x0=numpy.zeros(DTR.shape[1]), args=(H,), bounds=bounds, factr=1.0)
+    #n = DTR.shape[1]
+    H = vcol(Z) * vrow(Z) * G
+    # for i in range(n):
+    #     for j in range(n):
+    #         H[i, j] = LTR[i] * LTR[j] * G[i, j]
+    #bounds = numpy.full((n, 2), (0, C))
+    alpha, dual_loss, _d = scipy.optimize.fmin_l_bfgs_b(
+        LD_alpha, 
+        x0=numpy.zeros(DTR.shape[1]), 
+        args=(H,), 
+        bounds=compute_weights(C, LTR, priors), 
+        factr=1.0)
     #print("Dual loss", -dual_loss)
-    w = numpy.sum(alpha * D * LTR, axis=1)
+    w = numpy.sum(alpha * D * Z, axis=1)
+    #w = numpy.sum(alpha * D * LTR, axis=1)
     # t = 0
     # D = D.T
     # for i in range(n):
@@ -463,32 +476,35 @@ def bounds_creator(C, n):
 #             kernel = (numpy.dot(DTR[:, i].T, DTE[:, j]) + c)**d + K**2
 #     return numpy.dot(alpha * LTR, kernel)
 
-def polynomial_kernel_SVM(DTR, LTR, C, K, d, c, DTE):
-    LTR = 2 * LTR - 1
-    n = DTR.shape[1]
+def polynomial_kernel_SVM(DTR, LTR, C, K, d, c, DTE, priors=[0.5, 0.5]):
+    Z = 2 * LTR - 1
     kernel = (numpy.dot(DTR.T, DTR) + c)**d + K**2
-    H = kernel * vcol(LTR) * vrow(LTR)
-    bounds = numpy.full((n, 2), (0, C))
-    alpha, dual_loss, p = scipy.optimize.fmin_l_bfgs_b(LD_alpha, x0=numpy.zeros(n), args=(H,), bounds=bounds, factr=1.0)
-    #print("Dual loss", -dual_loss)
+    H = kernel * vcol(Z) * vrow(Z)
+    alpha, dual_loss, _d = scipy.optimize.fmin_l_bfgs_b(
+        LD_alpha, 
+        x0=numpy.zeros(DTR.shape[1]), 
+        args=(H,), 
+        bounds=compute_weights(C, LTR, priors), 
+        factr=1.0)
     kernel = (numpy.dot(DTR.T, DTE) + c)**d + K**2
-    return numpy.dot(alpha * LTR, kernel)
+    return numpy.dot(alpha * Z, kernel)
 
 def KFunc_RBF(D1, D2, g, K):
     dist = vcol((D1**2).sum(0)) + vrow((D2**2).sum(0)) - 2 * numpy.dot(D1.T, D2)
     return numpy.exp(-g*dist) + K**2
 
-def RBF_kernel_SVM(DTR, LTR, C, K, gamma, DTE):
-    LTR = 2 * LTR - 1
-    n = DTR.shape[1]
-    #H = numpy.zeros((n,n))
+def RBF_kernel_SVM(DTR, LTR, C, K, gamma, DTE, priors=[0.5, 0.5]):
+    Z = 2 * LTR - 1
     kernel = KFunc_RBF(DTR, DTR, gamma, K)
-    H = kernel * vcol(LTR) * vrow(LTR)
-    bounds = numpy.full((n, 2), (0, C))
-    alpha, dual_loss, p = scipy.optimize.fmin_l_bfgs_b(LD_alpha, x0=numpy.zeros(n), args=(H,), bounds=bounds, factr=1.0)
-    #print("Dual loss", -dual_loss)
+    H = kernel * vcol(Z) * vrow(Z)
+    alpha, dual_loss, _d = scipy.optimize.fmin_l_bfgs_b(
+        LD_alpha, 
+        x0=numpy.zeros(DTR.shape[1]), 
+        args=(H,), 
+        bounds=compute_weights(C, LTR, priors), 
+        factr=1.0)
     kernel = KFunc_RBF(DTR, DTE, gamma, K)
-    return numpy.dot(alpha * LTR, kernel)
+    return numpy.dot(alpha * Z, kernel)
 
 # def RBF_kernel_SVM(DTR, LTR, C, K, gamma, DTE):
 #     LTR = 2 * LTR - 1
