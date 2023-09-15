@@ -144,3 +144,79 @@ num iterations: 64
 prior: 0.5 min cost: 0.387
 prior: 0.1 min cost: 0.840
 prior: 0.9 min cost: 0.697
+
+PCA 11
+num iterations: 1
+prior: 0.5 min cost: 0.117
+prior: 0.1 min cost: 0.308
+prior: 0.9 min cost: 0.348
+
+num iterations: 2
+prior: 0.5 min cost: 0.080
+prior: 0.1 min cost: 0.223
+prior: 0.9 min cost: 0.198
+
+num iterations: 4
+prior: 0.5 min cost: 0.071
+prior: 0.1 min cost: 0.204
+prior: 0.9 min cost: 0.198
+
+num iterations: 8
+prior: 0.5 min cost: 0.095
+prior: 0.1 min cost: 0.267
+prior: 0.9 min cost: 0.222
+
+num iterations: 16
+prior: 0.5 min cost: 0.149
+prior: 0.1 min cost: 0.439
+prior: 0.9 min cost: 0.311
+
+num iterations: 32
+prior: 0.5 min cost: 0.278
+prior: 0.1 min cost: 0.841
+prior: 0.9 min cost: 0.459
+
+num iterations: 64
+/home/silvano_h/Documents/MLPR-GenderIdentification/code/GMM_train.py:311: RuntimeWarning: divide by zero encountered in true_divide
+  s=numpy.log(numpy.exp(logdens_D1)/ numpy.exp(logdens_D0))
+/home/silvano_h/Documents/MLPR-GenderIdentification/code/GMM_train.py:311: RuntimeWarning: overflow encountered in true_divide
+  s=numpy.log(numpy.exp(logdens_D1)/ numpy.exp(logdens_D0))
+prior: 0.5 min cost: 0.566
+prior: 0.1 min cost: 0.945
+prior: 0.9 min cost: 0.739
+
+Z-norm
+num iterations: 1
+prior: 0.5 min cost: 0.117
+prior: 0.1 min cost: 0.308
+prior: 0.9 min cost: 0.348
+
+num iterations: 2
+prior: 0.5 min cost: 0.088
+prior: 0.1 min cost: 0.242
+prior: 0.9 min cost: 0.236
+
+num iterations: 4
+prior: 0.5 min cost: 0.074
+prior: 0.1 min cost: 0.217
+prior: 0.9 min cost: 0.209
+
+num iterations: 8
+prior: 0.5 min cost: 0.087
+prior: 0.1 min cost: 0.261
+prior: 0.9 min cost: 0.211
+
+num iterations: 16
+prior: 0.5 min cost: 0.153
+prior: 0.1 min cost: 0.448
+prior: 0.9 min cost: 0.331
+
+num iterations: 32
+prior: 0.5 min cost: 0.259
+prior: 0.1 min cost: 0.799
+prior: 0.9 min cost: 0.471
+
+num iterations: 64
+prior: 0.5 min cost: 0.396
+prior: 0.1 min cost: 0.880
+prior: 0.9 min cost: 0.649
