@@ -777,7 +777,7 @@ def plot_min_cdf_error_gaussian_mixture_models(model_name, first_dcf, second_dcf
     plt.close()
 
 def correlationsPlot(D, L, desc = ''):
-    cmap = ['Greys', 'Reds', 'Blues']
+    cmap = ['Greys', 'Blues', 'Reds']
     corrCoeff = {
         0: numpy.abs(numpy.corrcoef(D)),
         1: numpy.abs(numpy.corrcoef(D[:, L == 0])),
