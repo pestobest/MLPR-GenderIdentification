@@ -12,6 +12,8 @@ PCA: 11
 min cost: 0.118
 PCA: 12
 min cost: 0.109
+RAW
+min cost: 0.109
 
 Prior: 0.1
 PCA: 7
@@ -26,6 +28,8 @@ PCA: 11
 min cost: 0.289
 PCA: 12
 min cost: 0.299
+RAW
+min cost: 0.299
 
 Prior: 0.9
 PCA: 7
@@ -39,6 +43,8 @@ min cost: 0.474
 PCA: 11
 min cost: 0.355
 PCA: 12
+min cost: 0.342
+RAW
 min cost: 0.342
 
 Tied Covariance model Z-norm features
@@ -55,6 +61,8 @@ PCA: 11
 min cost: 0.118
 PCA: 12
 min cost: 0.109
+RAW
+min cost: 0.109
 
 Prior: 0.1
 PCA: 7
@@ -69,6 +77,8 @@ PCA: 11
 min cost: 0.299
 PCA: 12
 min cost: 0.299
+RAW
+min cost: 0.299
 
 Prior: 0.9
 PCA: 7
@@ -82,4 +92,6 @@ min cost: 0.535
 PCA: 11
 min cost: 0.356
 PCA: 12
+min cost: 0.342
+RAW
 min cost: 0.342
