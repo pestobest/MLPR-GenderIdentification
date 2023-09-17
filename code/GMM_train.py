@@ -197,7 +197,11 @@ if __name__ == "__main__":
         print()
     
     print("Z-norm")
-    folds, labels = Ksplit(Z_norm(DP), L, seed=0, K=K)
+
+    P = PCA(Z_norm(D), 12)
+
+    DP = numpy.dot(P.T, D)
+    folds, labels = Ksplit(DP, L, seed=0, K=K)
     delta = 10**-6
     
     min_cost_vec_znorm = []
@@ -321,7 +325,11 @@ if __name__ == "__main__":
         print()
     
     print("Z-norm")
-    folds, labels = Ksplit(Z_norm(DP), L, seed=0, K=K)
+    
+    P = PCA(Z_norm(D), 11)
+
+    DP = numpy.dot(P.T, D)
+    folds, labels = Ksplit(DP, L, seed=0, K=K)
     delta = 10**-6
     
     min_cost_vec_znorm = []
