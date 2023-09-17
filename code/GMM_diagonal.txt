@@ -212,3 +212,220 @@ num iterations: 64
 prior: 0.5 min cost: 0.190
 prior: 0.1 min cost: 0.533
 prior: 0.9 min cost: 0.467
+
+========================================
+
+num iterations: 1
+prior: 0.5 min cost: 0.113
+prior: 0.1 min cost: 0.297
+prior: 0.9 min cost: 0.350
+
+num iterations: 2
+prior: 0.5 min cost: 0.448
+prior: 0.1 min cost: 0.767
+prior: 0.9 min cost: 0.774
+
+num iterations: 4
+prior: 0.5 min cost: 0.193
+prior: 0.1 min cost: 0.519
+prior: 0.9 min cost: 0.473
+
+num iterations: 8
+prior: 0.5 min cost: 0.192
+prior: 0.1 min cost: 0.499
+prior: 0.9 min cost: 0.501
+
+num iterations: 16
+prior: 0.5 min cost: 0.193
+prior: 0.1 min cost: 0.481
+prior: 0.9 min cost: 0.465
+
+num iterations: 32
+prior: 0.5 min cost: 0.228
+prior: 0.1 min cost: 0.572
+prior: 0.9 min cost: 0.517
+
+num iterations: 64
+prior: 0.5 min cost: 0.261
+prior: 0.1 min cost: 0.640
+prior: 0.9 min cost: 0.584
+
+Z-norm
+num iterations: 1
+prior: 0.5 min cost: 0.113
+prior: 0.1 min cost: 0.297
+prior: 0.9 min cost: 0.350
+
+num iterations: 2
+prior: 0.5 min cost: 0.447
+prior: 0.1 min cost: 0.767
+prior: 0.9 min cost: 0.774
+
+num iterations: 4
+prior: 0.5 min cost: 0.189
+prior: 0.1 min cost: 0.504
+prior: 0.9 min cost: 0.464
+
+num iterations: 8
+prior: 0.5 min cost: 0.194
+prior: 0.1 min cost: 0.485
+prior: 0.9 min cost: 0.490
+
+num iterations: 16
+prior: 0.5 min cost: 0.196
+prior: 0.1 min cost: 0.484
+prior: 0.9 min cost: 0.448
+
+num iterations: 32
+prior: 0.5 min cost: 0.224
+prior: 0.1 min cost: 0.583
+prior: 0.9 min cost: 0.519
+
+num iterations: 64
+prior: 0.5 min cost: 0.255
+prior: 0.1 min cost: 0.683
+prior: 0.9 min cost: 0.588
+
+PCA 12
+num iterations: 1
+prior: 0.5 min cost: 0.113
+prior: 0.1 min cost: 0.297
+prior: 0.9 min cost: 0.350
+
+num iterations: 2
+prior: 0.5 min cost: 0.120
+prior: 0.1 min cost: 0.335
+prior: 0.9 min cost: 0.352
+
+num iterations: 4
+prior: 0.5 min cost: 0.113
+prior: 0.1 min cost: 0.333
+prior: 0.9 min cost: 0.293
+
+num iterations: 8
+prior: 0.5 min cost: 0.126
+prior: 0.1 min cost: 0.337
+prior: 0.9 min cost: 0.300
+
+num iterations: 16
+prior: 0.5 min cost: 0.134
+prior: 0.1 min cost: 0.358
+prior: 0.9 min cost: 0.325
+
+num iterations: 32
+prior: 0.5 min cost: 0.154
+prior: 0.1 min cost: 0.377
+prior: 0.9 min cost: 0.388
+
+num iterations: 64
+prior: 0.5 min cost: 0.197
+prior: 0.1 min cost: 0.524
+prior: 0.9 min cost: 0.439
+
+Z-norm
+num iterations: 1
+prior: 0.5 min cost: 0.113
+prior: 0.1 min cost: 0.297
+prior: 0.9 min cost: 0.350
+
+num iterations: 2
+prior: 0.5 min cost: 0.216
+prior: 0.1 min cost: 0.498
+prior: 0.9 min cost: 0.626
+
+num iterations: 4
+prior: 0.5 min cost: 0.174
+prior: 0.1 min cost: 0.477
+prior: 0.9 min cost: 0.441
+
+num iterations: 8
+prior: 0.5 min cost: 0.191
+prior: 0.1 min cost: 0.468
+prior: 0.9 min cost: 0.454
+
+num iterations: 16
+prior: 0.5 min cost: 0.193
+prior: 0.1 min cost: 0.467
+prior: 0.9 min cost: 0.453
+
+num iterations: 32
+prior: 0.5 min cost: 0.208
+prior: 0.1 min cost: 0.576
+prior: 0.9 min cost: 0.512
+
+num iterations: 64
+prior: 0.5 min cost: 0.249
+prior: 0.1 min cost: 0.649
+prior: 0.9 min cost: 0.551
+
+PCA 11
+num iterations: 1
+prior: 0.5 min cost: 0.117
+prior: 0.1 min cost: 0.308
+prior: 0.9 min cost: 0.348
+
+num iterations: 2
+prior: 0.5 min cost: 0.127
+prior: 0.1 min cost: 0.325
+prior: 0.9 min cost: 0.371
+
+num iterations: 4
+prior: 0.5 min cost: 0.120
+prior: 0.1 min cost: 0.297
+prior: 0.9 min cost: 0.280
+
+num iterations: 8
+prior: 0.5 min cost: 0.128
+prior: 0.1 min cost: 0.345
+prior: 0.9 min cost: 0.325
+
+num iterations: 16
+prior: 0.5 min cost: 0.138
+prior: 0.1 min cost: 0.429
+prior: 0.9 min cost: 0.320
+
+num iterations: 32
+prior: 0.5 min cost: 0.150
+prior: 0.1 min cost: 0.407
+prior: 0.9 min cost: 0.366
+
+num iterations: 64
+prior: 0.5 min cost: 0.181
+prior: 0.1 min cost: 0.519
+prior: 0.9 min cost: 0.464
+
+Z-norm
+num iterations: 1
+prior: 0.5 min cost: 0.120
+prior: 0.1 min cost: 0.312
+prior: 0.9 min cost: 0.355
+
+num iterations: 2
+prior: 0.5 min cost: 0.213
+prior: 0.1 min cost: 0.498
+prior: 0.9 min cost: 0.621
+
+num iterations: 4
+prior: 0.5 min cost: 0.167
+prior: 0.1 min cost: 0.458
+prior: 0.9 min cost: 0.437
+
+num iterations: 8
+prior: 0.5 min cost: 0.186
+prior: 0.1 min cost: 0.419
+prior: 0.9 min cost: 0.432
+
+num iterations: 16
+prior: 0.5 min cost: 0.176
+prior: 0.1 min cost: 0.466
+prior: 0.9 min cost: 0.408
+
+num iterations: 32
+prior: 0.5 min cost: 0.199
+prior: 0.1 min cost: 0.532
+prior: 0.9 min cost: 0.489
+
+num iterations: 64
+prior: 0.5 min cost: 0.228
+prior: 0.1 min cost: 0.635
+prior: 0.9 min cost: 0.510

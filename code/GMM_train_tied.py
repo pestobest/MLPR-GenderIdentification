@@ -17,7 +17,7 @@ if __name__ == "__main__":
     folds, labels = Ksplit(D, L, seed=0, K=K)
     delta = 10**-6
     
-    """min_cost_vec = []
+    min_cost_vec = []
     for it in range(7):
         print("num iterations:", 2**it)
         scores = []
@@ -197,7 +197,11 @@ if __name__ == "__main__":
         print()
     
     print("Z-norm")
-    folds, labels = Ksplit(Z_norm(DP), L, seed=0, K=K)
+    
+    P = PCA(Z_norm(D), 12)
+
+    DP = numpy.dot(P.T, D)
+    folds, labels = Ksplit(DP, L, seed=0, K=K)
     delta = 10**-6
     
     min_cost_vec_znorm = []
@@ -256,7 +260,6 @@ if __name__ == "__main__":
         print()
     
     plot_min_cdf_error_gaussian_mixture_models("GMM tied PCA-12", min_cost_vec, min_cost_vec_znorm, "RAW", "Z-Norm")
-"""
     
     print("PCA 11")
     
@@ -322,7 +325,11 @@ if __name__ == "__main__":
         print()
     
     print("Z-norm")
-    folds, labels = Ksplit(Z_norm(DP), L, seed=0, K=K)
+    
+    P = PCA(Z_norm(D), 11)
+
+    DP = numpy.dot(P.T, D)
+    folds, labels = Ksplit(DP, L, seed=0, K=K)
     delta = 10**-6
     
     min_cost_vec_znorm = []
