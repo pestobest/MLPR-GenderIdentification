@@ -1,0 +1,170 @@
+GMM diagonal
+Raw
+Traceback (most recent call last):
+
+  File ~\anaconda3\lib\site-packages\spyder_kernels\py3compat.py:356 in compat_exec
+    exec(code, globals, locals)
+
+  File c:\users\gianm\onedrive\desktop\progetto ml&pr - copia\mlpr-genderidentification\code\gmm_diagonal_test.py:145
+    min_cost_vec = train(D, L)
+
+  File c:\users\gianm\onedrive\desktop\progetto ml&pr - copia\mlpr-genderidentification\code\gmm_diagonal_test.py:63 in train
+    min_cost = Bayes_risk_min_cost(0.5, 1, 1, scores, orderedLabels)
+
+  File ~\OneDrive\Desktop\Progetto ML&PR - Copia\MLPR-GenderIdentification\code\Library_gianmarco.py:371 in Bayes_risk_min_cost
+    conf_matrix[p][labels[j]] += 1
+
+KeyboardInterrupt
+
+
+runfile('C:/Users/gianm/OneDrive/Desktop/Progetto ML&PR - Copia/MLPR-GenderIdentification/code/GMM_diagonal_test.py', wdir='C:/Users/gianm/OneDrive/Desktop/Progetto ML&PR - Copia/MLPR-GenderIdentification/code')
+Reloaded modules: Library_gianmarco, library
+GMM diagonal
+Raw
+Testing
+num iterations: 1
+prior: 0.5 min cost: 0.120
+prior: 0.1 min cost: 0.312
+prior: 0.9 min cost: 0.312
+
+num iterations: 2
+prior: 0.5 min cost: 0.422
+prior: 0.1 min cost: 0.813
+prior: 0.9 min cost: 0.700
+
+num iterations: 4
+prior: 0.5 min cost: 0.185
+prior: 0.1 min cost: 0.466
+prior: 0.9 min cost: 0.428
+
+num iterations: 8
+prior: 0.5 min cost: 0.192
+prior: 0.1 min cost: 0.465
+prior: 0.9 min cost: 0.416
+
+num iterations: 16
+prior: 0.5 min cost: 0.186
+prior: 0.1 min cost: 0.463
+prior: 0.9 min cost: 0.448
+
+num iterations: 32
+prior: 0.5 min cost: 0.194
+prior: 0.1 min cost: 0.507
+prior: 0.9 min cost: 0.464
+
+num iterations: 64
+prior: 0.5 min cost: 0.213
+prior: 0.1 min cost: 0.553
+prior: 0.9 min cost: 0.478
+
+Z-norm
+Testing
+num iterations: 1
+prior: 0.5 min cost: 0.120
+prior: 0.1 min cost: 0.312
+prior: 0.9 min cost: 0.312
+
+num iterations: 2
+prior: 0.5 min cost: 0.422
+prior: 0.1 min cost: 0.813
+prior: 0.9 min cost: 0.700
+
+num iterations: 4
+prior: 0.5 min cost: 0.186
+prior: 0.1 min cost: 0.476
+prior: 0.9 min cost: 0.430
+
+num iterations: 8
+prior: 0.5 min cost: 0.187
+prior: 0.1 min cost: 0.452
+prior: 0.9 min cost: 0.429
+
+num iterations: 16
+prior: 0.5 min cost: 0.175
+prior: 0.1 min cost: 0.451
+prior: 0.9 min cost: 0.420
+
+num iterations: 32
+prior: 0.5 min cost: 0.197
+prior: 0.1 min cost: 0.479
+prior: 0.9 min cost: 0.481
+
+num iterations: 64
+prior: 0.5 min cost: 0.218
+prior: 0.1 min cost: 0.600
+prior: 0.9 min cost: 0.496
+
+PCA 12
+Raw
+Testing
+num iterations: 1
+prior: 0.5 min cost: 0.120
+prior: 0.1 min cost: 0.312
+prior: 0.9 min cost: 0.312
+
+num iterations: 2
+prior: 0.5 min cost: 0.125
+prior: 0.1 min cost: 0.344
+prior: 0.9 min cost: 0.321
+
+num iterations: 4
+prior: 0.5 min cost: 0.097
+prior: 0.1 min cost: 0.276
+prior: 0.9 min cost: 0.241
+
+num iterations: 8
+prior: 0.5 min cost: 0.118
+prior: 0.1 min cost: 0.336
+prior: 0.9 min cost: 0.265
+
+num iterations: 16
+prior: 0.5 min cost: 0.110
+prior: 0.1 min cost: 0.309
+prior: 0.9 min cost: 0.277
+
+num iterations: 32
+prior: 0.5 min cost: 0.125
+prior: 0.1 min cost: 0.342
+prior: 0.9 min cost: 0.295
+
+num iterations: 64
+prior: 0.5 min cost: 0.166
+prior: 0.1 min cost: 0.451
+prior: 0.9 min cost: 0.389
+
+Z-norm
+Testing
+num iterations: 1
+prior: 0.5 min cost: 0.969
+prior: 0.1 min cost: 0.998
+prior: 0.9 min cost: 0.999
+
+num iterations: 2
+prior: 0.5 min cost: 0.807
+prior: 0.1 min cost: 0.998
+prior: 0.9 min cost: 0.998
+
+num iterations: 4
+prior: 0.5 min cost: 0.514
+prior: 0.1 min cost: 0.887
+prior: 0.9 min cost: 0.959
+
+num iterations: 8
+prior: 0.5 min cost: 0.538
+prior: 0.1 min cost: 0.895
+prior: 0.9 min cost: 0.977
+
+num iterations: 16
+prior: 0.5 min cost: 0.550
+prior: 0.1 min cost: 0.952
+prior: 0.9 min cost: 0.959
+
+num iterations: 32
+prior: 0.5 min cost: 0.560
+prior: 0.1 min cost: 0.923
+prior: 0.9 min cost: 0.966
+
+num iterations: 64
+prior: 0.5 min cost: 0.516
+prior: 0.1 min cost: 0.952
+prior: 0.9 min cost: 0.969

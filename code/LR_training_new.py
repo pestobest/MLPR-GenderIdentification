@@ -48,7 +48,7 @@ def train(D, L):
         min_cost_09.append(Bayes_risk_min_cost(0.9, 1, 1, scores, orderedLabels))
     return min_cost_05, min_cost_01, min_cost_09
 
-def plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, mode):
+def plot_minDCF_LR(min_cost_05, min_cost_01, min_cost_09, mode):
     fig = plt.figure()
     l_values = numpy.logspace(-5, 5, num=51)
     plt.plot(l_values, min_cost_05, label="minDCF($\\tilde{\pi} = 0.5$)", color='b')
@@ -67,24 +67,24 @@ def plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, mode):
 if __name__ == '__main__':
 
     [D, L] = load('../Train.txt')
-    # print("Logistic Regression RAW features")
-    # min_cost_05, min_cost_01, min_cost_09 = train(D, L)
-    # plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Raw")
+    print("Logistic Regression RAW features")
+    min_cost_05, min_cost_01, min_cost_09 = train(D, L)
+    plot_minDCF_LR(min_cost_05, min_cost_01, min_cost_09, "Raw")
     
-    # print("Logistic Regression Z-norm features")
-    # min_cost_05, min_cost_01, min_cost_09 = train(Z_norm(D), L)
-    # plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Z_norm")
+    print("Logistic Regression Z-norm features")
+    min_cost_05, min_cost_01, min_cost_09 = train(Z_norm(D), L)
+    plot_minDCF_LR(min_cost_05, min_cost_01, min_cost_09, "Z_norm")
     
-    # P = PCA(D, 12)
-    # DP = numpy.dot(P.T, D)
+    P = PCA(D, 12)
+    DP = numpy.dot(P.T, D)
     
-    # print("Logistic Regression PCA 12 RAW features")
-    # min_cost_05, min_cost_01, min_cost_09 = train(DP, L)
-    # plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Raw_PCA12")
+    print("Logistic Regression PCA 12 RAW features")
+    min_cost_05, min_cost_01, min_cost_09 = train(DP, L)
+    plot_minDCF_LR(min_cost_05, min_cost_01, min_cost_09, "Raw_PCA12")
     
     DZ = Z_norm(D)
     P = PCA(DZ, 12)
     DP = numpy.dot(P.T, DZ)
     print("Logistic Regression PCA 12 Z-norm features")
     min_cost_05, min_cost_01, min_cost_09 = train(DP, L)
-    plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Z_norm_PCA12")
+    plot_minDCF_LR(min_cost_05, min_cost_01, min_cost_09, "Z_norm_PCA12")
