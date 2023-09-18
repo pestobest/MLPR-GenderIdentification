@@ -135,36 +135,36 @@ prior: 0.9 min cost: 0.389
 Z-norm
 Testing
 num iterations: 1
-prior: 0.5 min cost: 0.969
-prior: 0.1 min cost: 0.998
-prior: 0.9 min cost: 0.999
+prior: 0.5 min cost: 0.120
+prior: 0.1 min cost: 0.312
+prior: 0.9 min cost: 0.312
 
 num iterations: 2
-prior: 0.5 min cost: 0.807
-prior: 0.1 min cost: 0.998
-prior: 0.9 min cost: 0.998
+prior: 0.5 min cost: 0.118
+prior: 0.1 min cost: 0.309
+prior: 0.9 min cost: 0.318
 
 num iterations: 4
-prior: 0.5 min cost: 0.514
-prior: 0.1 min cost: 0.887
-prior: 0.9 min cost: 0.959
+prior: 0.5 min cost: 0.128
+prior: 0.1 min cost: 0.374
+prior: 0.9 min cost: 0.307
 
 num iterations: 8
-prior: 0.5 min cost: 0.538
-prior: 0.1 min cost: 0.895
-prior: 0.9 min cost: 0.977
+prior: 0.5 min cost: 0.126
+prior: 0.1 min cost: 0.372
+prior: 0.9 min cost: 0.325
 
 num iterations: 16
-prior: 0.5 min cost: 0.550
-prior: 0.1 min cost: 0.952
-prior: 0.9 min cost: 0.959
+prior: 0.5 min cost: 0.142
+prior: 0.1 min cost: 0.413
+prior: 0.9 min cost: 0.334
 
 num iterations: 32
-prior: 0.5 min cost: 0.560
-prior: 0.1 min cost: 0.923
-prior: 0.9 min cost: 0.966
+prior: 0.5 min cost: 0.154
+prior: 0.1 min cost: 0.444
+prior: 0.9 min cost: 0.333
 
 num iterations: 64
-prior: 0.5 min cost: 0.516
-prior: 0.1 min cost: 0.952
-prior: 0.9 min cost: 0.969
+prior: 0.5 min cost: 0.182
+prior: 0.1 min cost: 0.534
+prior: 0.9 min cost: 0.384

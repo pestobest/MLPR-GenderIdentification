@@ -76,8 +76,6 @@ prior: 0.9 min cost: 0.451
 
 PCA 12
 Raw
-c:\users\gianm\onedrive\desktop\progetto ml&pr - copia\mlpr-genderidentification\code\gmm_test.py:58: RuntimeWarning: divide by zero encountered in divide
-  s=numpy.log(numpy.exp(logdens_D1)/ numpy.exp(logdens_D0))
 Testing
 num iterations: 1
 prior: 0.5 min cost: 0.120
@@ -117,36 +115,36 @@ prior: 0.9 min cost: 0.687
 Z-norm
 Testing
 num iterations: 1
-prior: 0.5 min cost: 0.969
-prior: 0.1 min cost: 0.998
-prior: 0.9 min cost: 0.999
+prior: 0.5 min cost: 0.120
+prior: 0.1 min cost: 0.312
+prior: 0.9 min cost: 0.312
 
 num iterations: 2
-prior: 0.5 min cost: 0.696
-prior: 0.1 min cost: 0.926
-prior: 0.9 min cost: 0.989
+prior: 0.5 min cost: 0.077
+prior: 0.1 min cost: 0.208
+prior: 0.9 min cost: 0.179
 
 num iterations: 4
-prior: 0.5 min cost: 0.631
-prior: 0.1 min cost: 0.969
-prior: 0.9 min cost: 0.945
+prior: 0.5 min cost: 0.060
+prior: 0.1 min cost: 0.152
+prior: 0.9 min cost: 0.157
 
 num iterations: 8
-prior: 0.5 min cost: 0.632
-prior: 0.1 min cost: 0.976
-prior: 0.9 min cost: 0.957
+prior: 0.5 min cost: 0.076
+prior: 0.1 min cost: 0.207
+prior: 0.9 min cost: 0.185
 
 num iterations: 16
-prior: 0.5 min cost: 0.635
-prior: 0.1 min cost: 0.989
-prior: 0.9 min cost: 0.959
+prior: 0.5 min cost: 0.111
+prior: 0.1 min cost: 0.289
+prior: 0.9 min cost: 0.238
 
 num iterations: 32
-prior: 0.5 min cost: 0.740
-prior: 0.1 min cost: 0.997
-prior: 0.9 min cost: 0.977
+prior: 0.5 min cost: 0.157
+prior: 0.1 min cost: 0.394
+prior: 0.9 min cost: 0.335
 
 num iterations: 64
-prior: 0.5 min cost: 0.791
-prior: 0.1 min cost: 0.994
-prior: 0.9 min cost: 0.989
+prior: 0.5 min cost: 0.226
+prior: 0.1 min cost: 0.580
+prior: 0.9 min cost: 0.451
