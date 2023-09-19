@@ -1,46 +1,43 @@
-import sys
-sys.path.append('../')
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Sep 19 05:53:28 2023
 
-import numpy
-from Library_gianmarco import tied_covariance_gaussian_classier, logreg, LBG_algorithm_tied, logpdf_GMM, RBF_kernel_SVM, logreg_obj_wrapper
-from library import load
-import scipy
+@author: gianm
+"""
 import matplotlib.pyplot as plt
+import numpy
+import scipy
+from Library_gianmarco import tied_covariance_gaussian_classier, logreg, LBG_algorithm_tied, Ksplit, logpdf_GMM, RBF_kernel_SVM, logreg_obj_wrapper
+from library import load
 
-
-def plot_det(llr_list, labels_list, file_name):
+def plot_det(llr: list, L: numpy.array, labels: list, file_name: str):
     colors = ["r", "b", "g", "y"]
-    models = ["GMM", "RBSVM", "TMVG", "LR"]
-    idx = 0
-    for llr in llr_list:
-        thresholds = numpy.concatenate([numpy.array([-numpy.inf]), numpy.sort(llr), numpy.array([numpy.inf])])
-        FNR = []
-        FPR = []
-        labels = labels_list[idx]
-        for i in range(thresholds.shape[0]):
-            conf_matrix = numpy.zeros((2,2), numpy.int32)
-            t = thresholds[i]
-            cont_p = 0
-            for j in range(llr.shape[0]):
-                p = 0
-                if llr[j] > t:
-                    cont_p += 1
-                    p = 1
-                conf_matrix[p, labels[j]] += 1
-            FNR.append(conf_matrix[0, 1]/(conf_matrix[0, 1] + conf_matrix[1, 1]))
-            FPR.append((conf_matrix[1, 0]/(conf_matrix[0, 0] + conf_matrix[1, 0])))
-        plt.plot(FPR, FNR, color=colors[idx], label=models[idx])
-        idx += 1
-    
+    for (idx, scores) in enumerate(llr):
+        fpr, tpr = compute_det_points(scores, L)
+        plt.plot(fpr, tpr, color=colors[idx], label=labels[idx])
+
     plt.xlabel("FPR")
     plt.ylabel("FNR")
     plt.xscale('log')
     plt.yscale('log')
     plt.legend()
     plt.grid()
-    plt.savefig("det/" + file_name + '.jpg', dpi=300, bbox_inches='tight')
+    plt.show()
     plt.close()
     
+def compute_det_points(llr, L):
+    threshold = numpy.concatenate([numpy.array([-numpy.inf]), numpy.sort(llr), numpy.array([numpy.inf])])
+    FNR_points = numpy.zeros(L.shape[0] + 2)
+    FPR_points = numpy.zeros(L.shape[0] + 2)
+    for (idx, t) in enumerate(threshold):
+        pred = 1 * (llr > t)
+        FNR = 1 - (numpy.bitwise_and(pred == 1, L == 1).sum() / (L == 1).sum())
+        FPR = numpy.bitwise_and(pred == 1, L == 0).sum() / (L == 1).sum()
+        FNR_points[idx] = FNR
+        FPR_points[idx] = FPR
+    print(FNR_points)
+    return FNR_points, FPR_points
+
 def test_GMM(DTR, LTR, DTE, LTE):
     print("GMM tied 8 comp RAW")
     D0 = DTR[:, LTR==0]
@@ -101,12 +98,12 @@ def test_LR(DTR, LTR, DTE, LTE):
 
 if __name__ == "__main__":
 
-    [DTR, LTR] = load('../Train.txt')
-    [DTE, LTE] = load('../Test.txt')
+    [DTR, LTR] = load('Train.txt')
+    [DTE, LTE] = load('Test.txt')
     
     sGMM = test_GMM(DTR, LTR, DTE, LTE)
     sRBSVM = test_SVM(DTR, LTR, DTE, LTE)
     sTMVG = test_TMVG(DTR, LTR, DTE, LTE)
     sLR = test_LR(DTR, LTR, DTE, LTE)
-    plot_det([sGMM, sRBSVM, sTMVG, sLR], [LTE, LTE, LTE, LTE], "det_test")
+    plot_det([sGMM, sRBSVM, sTMVG, sLR],LTE, ["LTE", "LTE", "LTE", "LTE"], "det_test")
     

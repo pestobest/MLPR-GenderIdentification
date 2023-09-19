@@ -13,15 +13,15 @@ def plot_det(llr_list, labels_list, file_name):
     models = ["GMM", "RBSVM", "TMVG", "LR"]
     idx = 0
     for llr in llr_list:
-        LLRs_sorted = numpy.concatenate([numpy.array([-numpy.inf]), numpy.sort(llr), numpy.array([numpy.inf])])
+        thresholds = numpy.concatenate([numpy.array([-numpy.inf]), numpy.sort(llr), numpy.array([numpy.inf])])
         FNR = []
         FPR = []
         labels = labels_list[idx]
-        for i in range(labels.shape[0]):
+        for i in range(thresholds.shape[0]):
             conf_matrix = numpy.zeros((2,2), numpy.int32)
-            t = LLRs_sorted[i]
+            t = thresholds[i]
             cont_p = 0
-            for j in range(labels.shape[0]):
+            for j in range(llr.shape[0]):
                 p = 0
                 if llr[j] > t:
                     cont_p += 1
