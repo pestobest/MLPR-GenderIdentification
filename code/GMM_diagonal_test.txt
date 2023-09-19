@@ -1,26 +1,5 @@
 GMM diagonal
 Raw
-Traceback (most recent call last):
-
-  File ~\anaconda3\lib\site-packages\spyder_kernels\py3compat.py:356 in compat_exec
-    exec(code, globals, locals)
-
-  File c:\users\gianm\onedrive\desktop\progetto ml&pr - copia\mlpr-genderidentification\code\gmm_diagonal_test.py:145
-    min_cost_vec = train(D, L)
-
-  File c:\users\gianm\onedrive\desktop\progetto ml&pr - copia\mlpr-genderidentification\code\gmm_diagonal_test.py:63 in train
-    min_cost = Bayes_risk_min_cost(0.5, 1, 1, scores, orderedLabels)
-
-  File ~\OneDrive\Desktop\Progetto ML&PR - Copia\MLPR-GenderIdentification\code\Library_gianmarco.py:371 in Bayes_risk_min_cost
-    conf_matrix[p][labels[j]] += 1
-
-KeyboardInterrupt
-
-
-runfile('C:/Users/gianm/OneDrive/Desktop/Progetto ML&PR - Copia/MLPR-GenderIdentification/code/GMM_diagonal_test.py', wdir='C:/Users/gianm/OneDrive/Desktop/Progetto ML&PR - Copia/MLPR-GenderIdentification/code')
-Reloaded modules: Library_gianmarco, library
-GMM diagonal
-Raw
 Testing
 num iterations: 1
 prior: 0.5 min cost: 0.120
