@@ -1,0 +1,85 @@
+Calibration GMM tied 8 comp RAW
+No calibration
+Error rate for this training is 3.54%
+minDCF with π=0.5 0.069
+minDCF with π=0.1 0.238
+minDCF with π=0.9 0.225
+actDCF with π=0.5 0.072
+actDCF with π=0.1 0.261
+actDCF with π=0.9 0.242
+After calibration
+Error rate for this training is 3.42%
+minDCF with π=0.5 0.07
+minDCF with π=0.1 0.236
+minDCF with π=0.9 0.225
+actDCF with π=0.5 0.081
+actDCF with π=0.1 0.266
+actDCF with π=0.9 0.258
+Calibration GMM tied 8 comp Z-norm PCA-12
+No calibration
+Error rate for this training is 3.58%
+minDCF with π=0.5 0.072
+minDCF with π=0.1 0.226
+minDCF with π=0.9 0.215
+actDCF with π=0.5 0.074
+actDCF with π=0.1 0.26
+actDCF with π=0.9 0.235
+After calibration
+Error rate for this training is 3.42%
+minDCF with π=0.5 0.072
+minDCF with π=0.1 0.231
+minDCF with π=0.9 0.216
+actDCF with π=0.5 0.081
+actDCF with π=0.1 0.268
+actDCF with π=0.9 0.257
+Calibration SVM RBF RAW features
+No calibration
+Error rate for this training is 4.63%
+minDCF with π=0.5 0.088
+minDCF with π=0.1 0.218
+minDCF with π=0.9 0.29
+actDCF with π=0.5 0.1
+actDCF with π=0.1 0.515
+actDCF with π=0.9 0.612
+After calibration
+Error rate for this training is 4.25%
+minDCF with π=0.5 0.086
+minDCF with π=0.1 0.226
+minDCF with π=0.9 0.289
+actDCF with π=0.5 0.104
+actDCF with π=0.1 0.268
+actDCF with π=0.9 0.337
+Calibration Tied MVG RAW features
+No calibration
+Error rate for this training is 6.25%
+minDCF with π=0.5 0.109
+minDCF with π=0.1 0.299
+minDCF with π=0.9 0.342
+actDCF with π=0.5 0.119
+actDCF with π=0.1 0.311
+actDCF with π=0.9 0.371
+After calibration
+Error rate for this training is 5.29%
+minDCF with π=0.5 0.109
+minDCF with π=0.1 0.3
+minDCF with π=0.9 0.341
+actDCF with π=0.5 0.13
+actDCF with π=0.1 0.321
+actDCF with π=0.9 0.438
+Calibration LR lambda 0.1 p=0.9
+No calibration
+Error rate for this training is 10.33%
+minDCF with π=0.5 0.114
+minDCF with π=0.1 0.296
+minDCF with π=0.9 0.349
+actDCF with π=0.5 0.33
+actDCF with π=0.1 0.404
+actDCF with π=0.9 0.753
+After calibration
+Error rate for this training is 5.5%
+minDCF with π=0.5 0.118
+minDCF with π=0.1 0.301
+minDCF with π=0.9 0.349
+actDCF with π=0.5 0.133
+actDCF with π=0.1 0.332
+actDCF with π=0.9 0.409
