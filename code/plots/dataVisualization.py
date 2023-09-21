@@ -22,6 +22,24 @@ def load(fname):
 
     return numpy.hstack(dataList), numpy.array(labelsList, dtype=numpy.int32)
 
+def cumulative_variance_PCA(n, s):
+    
+    percRetained = []
+
+    for m in range(n):
+        percRetained.append(numpy.sum(s[0:m])/numpy.sum(s[:].sum()))
+
+    plot.figure()
+    plot.plot(numpy.arange(0, 12, 1), numpy.array(percRetained, dtype=numpy.float32))
+    plot.xlabel('Number of components')
+    plot.ylabel('Cumulative variance')
+    plot.xticks(numpy.arange(n))
+    plot.yticks(numpy.arange(0, 1.1, 0.1))
+    plot.title('Cumulative variance over PCA dimensions')
+    plot.grid()
+    plot.tight_layout()
+    plot.savefig('cumulativeVariance/cumul_var.jpg')
+
 def hist(D, L, spath, m):
 
     M0 = (L==0)
@@ -288,14 +306,13 @@ if __name__ == '__main__':
 
     DC = D - mu
 
-    hist(D, L, './modifiedGraphsTest/', 12)
-    scatter(D, L, './modifiedGraphsTest/', 12)
-
     C = 0
-    dotDC = numpy.dot(D, D.T)
-    C = (1 / float(D.shape[1])) * dotDC
+    dotDC = numpy.dot(DC, DC.T)
+    C = (1 / float(DC.shape[1])) * dotDC
 
     U, s, Vh = numpy.linalg.svd(C)
+
+    cumulative_variance_PCA(12, s)
 
     num = 0
     den = 0
