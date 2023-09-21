@@ -2,9 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy
-from Library_gianmarco import naive_bayes_gaussian_classifier, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, vcol
-from library import load
-import matplotlib.pyplot as plt        
+from library import load, naive_bayes_gaussian_classifier, Bayes_risk_min_cost, PCA, Z_norm, vcol
 
 def test(DTR, LTR, DTE, LTE):
     scores, _ = naive_bayes_gaussian_classifier(DTR, LTR, DTE, LTE, numpy.vstack([0.5, 0.5]))

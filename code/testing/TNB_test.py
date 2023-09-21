@@ -2,9 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy
-from Library_gianmarco import tied_naive_bayes_classier, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, vcol
-from library import load
-import matplotlib.pyplot as plt        
+from library import load, tied_naive_bayes_classier, Bayes_risk_min_cost, PCA, Z_norm, vcol
 
 def test(DTR, LTR, DTE, LTE):
     scores, _ = tied_naive_bayes_classier(DTR, LTR, DTE, LTE, numpy.vstack([0.5, 0.5]))
