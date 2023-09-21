@@ -6,11 +6,10 @@ from library import load, polynomial_kernel_SVM, Bayes_risk_min_cost, Ksplit, Z_
 import matplotlib.pyplot as plt
 
 
-def train(D, L):
+def train(D, L, c=1):
     C_vec = numpy.logspace(-5, 5, num=31)
     K = 1
     d=2
-    c=1
     min_cost_05 = []
     min_cost_01 = []
     min_cost_09 = []
@@ -60,11 +59,19 @@ def plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, mode):
 if __name__ == '__main__':
 
     [D, L] = load('../Train.txt')
-        
+    
     # print("SVM RAW features")    
     # min_cost_05, min_cost_01, min_cost_09 = train(D, L)
     # plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Poly_Raw")
     
+    # print("SVM Z-Norm features")
+    # min_cost_05, min_cost_01, min_cost_09 = train(Z_norm(D), L)
+    # plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Poly_Znorm")
+    
+    print("SVM RAW features")    
+    min_cost_05, min_cost_01, min_cost_09 = train(D, L, c=0)
+    plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Poly_Raw_0")
+    
     print("SVM Z-Norm features")
-    min_cost_05, min_cost_01, min_cost_09 = train(Z_norm(D), L)
-    plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Poly_Znorm")
+    min_cost_05, min_cost_01, min_cost_09 = train(Z_norm(D), L, c=0)
+    plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Poly_Znorm_0")
