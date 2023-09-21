@@ -2,8 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy
-from Library_gianmarco import tied_covariance_gaussian_classier, logreg, LBG_algorithm_tied, logpdf_GMM, RBF_kernel_SVM, logreg_obj_wrapper
-from library import load
+from library import load, tied_covariance_gaussian_classier, logreg, LBG_algorithm_tied, logpdf_GMM, RBF_kernel_SVM, logreg_obj_wrapper
 import scipy
 import matplotlib.pyplot as plt
 

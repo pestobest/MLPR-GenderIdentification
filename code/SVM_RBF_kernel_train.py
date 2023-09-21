@@ -6,8 +6,7 @@ Created on Tue Jun 13 21:04:52 2023
 """
 
 import numpy
-from Library_gianmarco import RBF_kernel_SVM, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, plotDCFRBF
-from library import load
+from library import load, RBF_kernel_SVM, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, plotDCFRBF
 
 if __name__ == '__main__':
     D = []

@@ -2,8 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy
-from Library_gianmarco import dual_SVM, RBF_kernel_SVM, polynomial_kernel_SVM, Bayes_risk_min_cost, Ksplit, Z_norm
-from library import load
+from library import load, dual_SVM, RBF_kernel_SVM, polynomial_kernel_SVM, Bayes_risk_min_cost, Ksplit, Z_norm
 
 def train(D, L, C):
     priors = [[0.5, 0.5], [0.9, 0.1], [0.1, 0.9]]

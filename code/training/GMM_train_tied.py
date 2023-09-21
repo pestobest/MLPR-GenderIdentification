@@ -2,8 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy
-from Library_gianmarco import LBG_algorithm_tied, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, logpdf_GMM, plot_min_cdf_error_gaussian_mixture_models
-from library import load
+from library import load, LBG_algorithm_tied, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, logpdf_GMM, plot_min_cdf_error_gaussian_mixture_models
 
 if __name__ == "__main__":
 

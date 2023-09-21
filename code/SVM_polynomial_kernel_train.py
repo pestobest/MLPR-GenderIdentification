@@ -6,8 +6,7 @@ Created on Tue Jun 13 21:04:52 2023
 """
 
 import numpy
-from Library_gianmarco import polynomial_kernel_SVM, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, plot_minDCF_svm_poly, plotDCFpoly
-from library import load
+from library import load, polynomial_kernel_SVM, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, plotDCFpoly
 
 if __name__ == '__main__':
     D = []

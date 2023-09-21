@@ -2,9 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy
-from Library_gianmarco import multivariete_gaussian_classifier, Bayes_risk_min_cost, PCA, Ksplit, Z_norm
-from library import load
-
+from library import load, multivariete_gaussian_classifier, Bayes_risk_min_cost, PCA, Ksplit, Z_norm
 
 if __name__ == '__main__':
     D = []

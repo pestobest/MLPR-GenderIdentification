@@ -2,8 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy
-from Library_gianmarco import logreg_obj_wrapper, logreg, Bayes_risk_min_cost, Z_norm, vcol
-from library import load
+from library import load, logreg_obj_wrapper, logreg, Bayes_risk_min_cost, Z_norm, vcol
 import scipy
 
 def test(DTR, LTR, DTE, LTE, l):

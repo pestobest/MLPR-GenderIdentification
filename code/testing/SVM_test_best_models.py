@@ -2,8 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy
-from Library_gianmarco import dual_SVM, RBF_kernel_SVM, polynomial_kernel_SVM, Bayes_risk_min_cost, vcol, Z_norm
-from library import load
+from library import load, dual_SVM, RBF_kernel_SVM, polynomial_kernel_SVM, Bayes_risk_min_cost, vcol, Z_norm
 
 def test(DTR, LTR, DTE, LTE, C):
     priors = [[0.5, 0.5], [0.9, 0.1], [0.1, 0.9]]

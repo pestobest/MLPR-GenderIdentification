@@ -2,8 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy
-from Library_gianmarco import LBG_algorithm, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, logpdf_GMM, plot_min_cdf_error_gaussian_mixture_models, vcol
-from library import load
+from library import load, LBG_algorithm, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, logpdf_GMM, vcol
 import matplotlib.pyplot as plt
 
 

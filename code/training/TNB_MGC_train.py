@@ -2,8 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy
-from Library_gianmarco import tied_naive_bayes_classier, Bayes_risk_min_cost, Z_norm, PCA, Ksplit
-from library import load
+from library import load, tied_naive_bayes_classier, Bayes_risk_min_cost, Z_norm, PCA, Ksplit
 
 if __name__ == '__main__':
     D = []

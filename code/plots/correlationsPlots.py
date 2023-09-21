@@ -1,6 +1,5 @@
 import numpy
-from library import vcol, load
-from Library_gianmarco import correlationsPlot
+from library import vcol, load, correlationsPlot
 
 if __name__ == '__main__':
     D = []

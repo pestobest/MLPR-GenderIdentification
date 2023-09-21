@@ -2,8 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy
-from Library_gianmarco import dual_SVM, Bayes_risk_min_cost, PCA, Ksplit, Z_norm
-from library import load
+from library import load, dual_SVM, Bayes_risk_min_cost, PCA, Ksplit, Z_norm
 
 if __name__ == '__main__':
     D = []

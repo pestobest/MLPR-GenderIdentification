@@ -2,8 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy
-from Library_gianmarco import logreg_obj_wrapper, logreg, Bayes_risk_min_cost, Z_norm, PCA, Ksplit
-from library import load
+from library import load, logreg_obj_wrapper, logreg, Bayes_risk_min_cost, Z_norm, PCA, Ksplit
 import scipy
 import matplotlib.pyplot as plt
 

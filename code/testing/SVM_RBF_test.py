@@ -2,8 +2,7 @@ import sys
 sys.path.append('../')
 
 import numpy
-from Library_gianmarco import RBF_kernel_SVM, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, vcol
-from library import load
+from library import load, RBF_kernel_SVM, Bayes_risk_min_cost, Ksplit, Z_norm, vcol
 import matplotlib.pyplot as plt
 
 

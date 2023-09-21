@@ -1,6 +1,5 @@
 import numpy
-from Library_gianmarco import tied_covariance_gaussian_classier, Bayes_risk_Bdummy, logreg_obj_wrap_prof, logreg, LBG_algorithm_tied, Bayes_risk_min_cost, PCA, Ksplit, Z_norm, logpdf_GMM, RBF_kernel_SVM, logreg_obj_wrapper
-from library import load
+from library import load, tied_covariance_gaussian_classier, Bayes_risk_Bdummy, logreg_obj_wrap_prof, logreg, LBG_algorithm_tied, Bayes_risk_min_cost, Ksplit, logpdf_GMM, RBF_kernel_SVM, logreg_obj_wrapper
 import scipy
 import matplotlib.pyplot as plt
 
