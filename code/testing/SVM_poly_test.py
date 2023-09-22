@@ -6,11 +6,10 @@ from library import load, polynomial_kernel_SVM, Bayes_risk_min_cost, Ksplit, Z_
 import matplotlib.pyplot as plt
 
 
-def train(D, L):
+def train(D, L, c=1):
     C_vec = numpy.logspace(-5, 5, num=31)
     K = 1
     d=2
-    c=1
     min_cost_05 = []
     min_cost_01 = []
     min_cost_09 = []
@@ -40,11 +39,10 @@ def train(D, L):
         min_cost_09.append(Bayes_risk_min_cost(0.9, 1, 1, scores, orderedLabels))
     return min_cost_05, min_cost_01, min_cost_09
 
-def test(DTR, LTR, DTE, LTE):
+def test(DTR, LTR, DTE, LTE, c=1):
     C_vec = numpy.logspace(-5, 5, num=31)
     K = 1
     d=2
-    c=1
     min_cost_05 = []
     min_cost_01 = []
     min_cost_09 = []
@@ -81,16 +79,29 @@ if __name__ == '__main__':
     [D, L] = load('../Train.txt')
     [DTE, LTE] = load('../Test.txt')  
         
-    # print("SVM Poly RAW features")    
-    # min_cost_05, min_cost_01, min_cost_09 = train(D, L)
-    # min_cost_05_t, min_cost_01_t, min_cost_09_t = test(D, L, DTE, LTE)
-    # plot_minDCF_SVM_test(min_cost_05, min_cost_01, min_cost_09, min_cost_05_t, min_cost_01_t, min_cost_09_t, "Poly_Raw")
+    print("SVM Poly RAW features c=1")    
+    min_cost_05, min_cost_01, min_cost_09 = train(D, L)
+    min_cost_05_t, min_cost_01_t, min_cost_09_t = test(D, L, DTE, LTE)
+    plot_minDCF_SVM_test(min_cost_05, min_cost_01, min_cost_09, min_cost_05_t, min_cost_01_t, min_cost_09_t, "Poly_Raw")
     
-    print("SVM Poly Z-Norm features")
+    print("SVM Poly Z-Norm features c=1")
     Dstd = vcol(numpy.std(D, axis=1))
     Dmean = vcol(D.mean(1))
     DTE = (DTE - Dmean) / Dstd
     min_cost_05, min_cost_01, min_cost_09 = train(Z_norm(D), L)
     min_cost_05_t, min_cost_01_t, min_cost_09_t = test(Z_norm(D), L, DTE, LTE)
     plot_minDCF_SVM_test(min_cost_05, min_cost_01, min_cost_09, min_cost_05_t, min_cost_01_t, min_cost_09_t, "Poly_Znorm")
+    
+    print("SVM Poly RAW features c=0")    
+    min_cost_05, min_cost_01, min_cost_09 = train(D, L, c=0)
+    min_cost_05_t, min_cost_01_t, min_cost_09_t = test(D, L, DTE, LTE, c=0)
+    plot_minDCF_SVM_test(min_cost_05, min_cost_01, min_cost_09, min_cost_05_t, min_cost_01_t, min_cost_09_t, "Poly_Raw_0")
+    
+    print("SVM Poly Z-Norm features c=0")
+    Dstd = vcol(numpy.std(D, axis=1))
+    Dmean = vcol(D.mean(1))
+    DTE = (DTE - Dmean) / Dstd
+    min_cost_05, min_cost_01, min_cost_09 = train(Z_norm(D), L, c=0)
+    min_cost_05_t, min_cost_01_t, min_cost_09_t = test(Z_norm(D), L, DTE, LTE, c=0)
+    plot_minDCF_SVM_test(min_cost_05, min_cost_01, min_cost_09, min_cost_05_t, min_cost_01_t, min_cost_09_t, "Poly_Znorm_0")
     

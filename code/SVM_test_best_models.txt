@@ -98,3 +98,20 @@ prior: [0.1, 0.9]
 minDCF 0.5: 0.125
 minDCF 0.1: 0.344
 minDCF 0.9: 0.276
+
+
+SVM Poly RAW features c=0
+prior: [0.5, 0.5]
+minDCF 0.5: 0.111
+minDCF 0.1: 0.324
+minDCF 0.9: 0.301
+
+prior: [0.9, 0.1]
+minDCF 0.5: 0.131
+minDCF 0.1: 0.326
+minDCF 0.9: 0.405
+
+prior: [0.1, 0.9]
+minDCF 0.5: 0.133
+minDCF 0.1: 0.382
+minDCF 0.9: 0.282

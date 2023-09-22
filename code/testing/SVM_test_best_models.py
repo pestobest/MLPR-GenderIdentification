@@ -28,11 +28,10 @@ def test_RBF(DTR, LTR, DTE, LTE, C, gamma):
         print()
 
 
-def test_poly(DTR, LTR, DTE, LTE, C):
+def test_poly(DTR, LTR, DTE, LTE, C, c=1):
     priors = [[0.5, 0.5], [0.9, 0.1], [0.1, 0.9]]
     K = 1
     d=2
-    c=1
     for p in priors:
         print("prior:", p)
         scores = polynomial_kernel_SVM(DTR, LTR, C, K, d, c, DTE, priors=p)
@@ -57,10 +56,13 @@ if __name__ == '__main__':
     test_RBF(DTR, LTR, DTE, LTE, C = 10, gamma = 10**(-3))
     print()
     
-    print("SVM Poly RAW features")    
+    print("SVM Poly RAW features c=1")    
     test_poly(DTR, LTR, DTE, LTE, C = 10**(-3))
     print()
     
+    print("SVM Poly RAW features c=0")    
+    test_poly(DTR, LTR, DTE, LTE, C = 10**(-3), c=0)
+    print()
     
     DTR = Z_norm(DTR)
     DTE = (DTE - Dmean) / Dstd
@@ -71,7 +73,6 @@ if __name__ == '__main__':
     print("SVM RBF Z-Norm features")
     test_RBF(DTR, LTR, DTE, LTE, C = 1, gamma = 10**(-1))
     print()
-    
     
     print("SVM Poly Z-Norm features")
     test_poly(DTR, LTR, DTE, LTE, C = 10**(-1))

@@ -65,11 +65,10 @@ def train_RBF(D, L, C, gamma):
         print("minDCF 0.9: %.3f" % Bayes_risk_min_cost(0.9, 1, 1, scores, orderedLabels))
         print()
 
-def train_poly(D, L, C):
+def train_poly(D, L, C, c=1):
     priors = [[0.5, 0.5], [0.9, 0.1], [0.1, 0.9]]
     K = 1
     d=2
-    c=1
     for p in priors:
         print("prior:", p) 
         K_fold = 5
@@ -108,16 +107,23 @@ if __name__ == '__main__':
     train(Z_norm(D), L, C = 10)
     print()
     
-    print("SVM RBF RAW features")    
+    print("SVM RBF RAW features")
     train_RBF(D, L, C = 10, gamma = 10**(-3))
     print()
     print("SVM RBF Z-Norm features")
     train_RBF(Z_norm(D), L, C = 1, gamma = 10**(-1))
     print()
     
-    print("SVM Poly RAW features")    
+    print("SVM Poly RAW features c=1")    
     train_poly(D, L, C = 10**(-3))
     print()
-    print("SVM Poly Z-Norm features")
+    print("SVM Poly Z-Norm features c=1")
     train_poly(Z_norm(D), L, C = 10**(-1))
+    print()
+    
+    print("SVM Poly RAW features c=0")    
+    train_poly(D, L, C = 10**(-3), c=0)
+    print()
+    print("SVM Poly Z-Norm features c=0")
+    train_poly(Z_norm(D), L, C = 10, c=0)
     print()

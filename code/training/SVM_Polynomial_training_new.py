@@ -60,18 +60,18 @@ if __name__ == '__main__':
 
     [D, L] = load('../Train.txt')
     
-    # print("SVM RAW features")    
-    # min_cost_05, min_cost_01, min_cost_09 = train(D, L)
-    # plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Poly_Raw")
+    print("SVM RAW features c=1")    
+    min_cost_05, min_cost_01, min_cost_09 = train(D, L)
+    plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Poly_Raw")
     
-    # print("SVM Z-Norm features")
-    # min_cost_05, min_cost_01, min_cost_09 = train(Z_norm(D), L)
-    # plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Poly_Znorm")
+    print("SVM Z-Norm features c=1")
+    min_cost_05, min_cost_01, min_cost_09 = train(Z_norm(D), L)
+    plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Poly_Znorm")
     
-    print("SVM RAW features")    
+    print("SVM RAW features c=0")    
     min_cost_05, min_cost_01, min_cost_09 = train(D, L, c=0)
     plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Poly_Raw_0")
     
-    print("SVM Z-Norm features")
+    print("SVM Z-Norm features c=0")
     min_cost_05, min_cost_01, min_cost_09 = train(Z_norm(D), L, c=0)
     plot_minDCF_SVM(min_cost_05, min_cost_01, min_cost_09, "Poly_Znorm_0")
