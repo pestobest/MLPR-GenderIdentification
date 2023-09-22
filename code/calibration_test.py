@@ -20,7 +20,7 @@ def compute_min_act(scores, labels):
     print("actDCF with π=0.1 " + cost_0_1_cal)
     print("actDCF with π=0.9 " + cost_0_9_cal)
     
-def train_GMM1(D, L):
+def train_GMM(D, L):
     K = 5
     folds, labels = Ksplit(D, L, seed=0, K=K)
     
@@ -71,7 +71,7 @@ def train_GMM1(D, L):
     orderedLabels = numpy.hstack(LTEs)
     return numpy.array([scores]), orderedLabels
     
-def cal_GMM1(DTR, LTR, DTE, LTE):
+def cal_GMM(DTR, LTR, DTE, LTE):
     print("Calibration GMM tied 8 comp RAW")
     D0 = DTR[:, LTR==0]
     D1 = DTR[:, LTR==1]
@@ -297,8 +297,8 @@ if __name__ == "__main__":
     [DTR, LTR] = load('Train.txt')
     [DTE, LTE] = load('Test.txt')
     
-    #cal_GMM1(DTR, LTR, DTE, LTE)
-    #cal_SVM(DTR, LTR, DTE, LTE)
+    cal_GMM(DTR, LTR, DTE, LTE)
+    cal_SVM(DTR, LTR, DTE, LTE)
     cal_TMVG(DTR, LTR, DTE, LTE)
     cal_LR(DTR, LTR, DTE, LTE)
     

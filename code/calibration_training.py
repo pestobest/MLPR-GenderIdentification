@@ -524,7 +524,7 @@ if __name__ == "__main__":
 
     [D, L] = load('Train.txt')
     cal_GMM1(D, L)
-    cal_GMM2(D, L)
+    cal_GMM2(D, L) # not used on the report
     cal_SVM(D, L)
     cal_TMVG(D, L)
     cal_LR(D, L)
