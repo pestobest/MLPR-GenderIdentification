@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Apr  6 23:09:26 2023
-
-@author: gianm
-"""
-
 import numpy
 import matplotlib.pyplot as plt
 import scipy.linalg
@@ -261,17 +254,6 @@ def Ksplit(D, L, seed=0, K=3):
         labels.append(L[idx[(i*numberOfSamplesInFold): ((i+1)*(numberOfSamplesInFold))]])
     return folds, labels
    
-# def logreg_obj_wrap(DTR, LTR, l):
-#     def logreg_obj(v):
-#         w, b = v[0:-1], v[-1]
-#         n = DTR.shape[1]
-#         ris = 0
-#         for i in range(n):
-#             z = 2*LTR[i] - 1
-#             ris += numpy.logaddexp(0, -z*(numpy.dot(w.T, DTR.T[i])+b))
-#         return l/2 * numpy.linalg.norm(w)**2 + (ris/n)
-#     return logreg_obj
-
 def logreg_obj_wrapper(D, L, l, pi):
     Z = (L * 2) - 1
     M = D.shape[0]
@@ -429,12 +411,7 @@ def dual_SVM(DTR, LTR, K, C, priors=[0.5, 0.5]):
     Z = 2 * LTR - 1
     D = numpy.vstack((DTR, numpy.zeros(DTR.shape[1]) + K))
     G = numpy.dot(D.T, D)
-    #n = DTR.shape[1]
     H = vcol(Z) * vrow(Z) * G
-    # for i in range(n):
-    #     for j in range(n):
-    #         H[i, j] = LTR[i] * LTR[j] * G[i, j]
-    #bounds = numpy.full((n, 2), (0, C))
     alpha, dual_loss, _d = scipy.optimize.fmin_l_bfgs_b(
         LD_alpha, 
         x0=numpy.zeros(DTR.shape[1]), 
@@ -443,7 +420,6 @@ def dual_SVM(DTR, LTR, K, C, priors=[0.5, 0.5]):
         factr=1.0)
     #print("Dual loss", -dual_loss)
     w = numpy.sum(alpha * D * Z, axis=1)
-    #w = numpy.sum(alpha * D * LTR, axis=1)
     # t = 0
     # D = D.T
     # for i in range(n):
@@ -452,12 +428,6 @@ def dual_SVM(DTR, LTR, K, C, priors=[0.5, 0.5]):
     # print("Primal loss:", primal_loss)
     # print("Dual gap", abs(dual_loss + primal_loss))
     return w
-        
-# def LD_alpha(alpha, H, ones):
-#     f = 0.5*numpy.dot(alpha.T, numpy.dot( H, alpha)) - numpy.dot(alpha.T, ones)
-#     grad = numpy.dot(H, alpha)- ones
-#     grad = grad.reshape(alpha.shape[0],)
-#     return f, grad
 
 def LD_alpha(alpha, H):
     f = 0.5*numpy.dot(alpha.T, numpy.dot( H, alpha)) - numpy.dot(alpha.T, numpy.ones(alpha.shape))
@@ -479,24 +449,6 @@ def bounds_creator(C, n):
     for i in range(n):
         bounds.append([0,C])
     return bounds
-    
-
-# def polynomial_kernel_SVM(DTR, LTR, C, K, d, c, DTE):
-#     LTR = 2 * LTR - 1
-#     n = DTR.shape[1]
-#     H = numpy.zeros((n,n))
-#     for i in range(n):
-#         for j in range(n):
-#             kernel=(numpy.dot(DTR[:, i].T, DTR[:, j]) + c)**d + K**2
-#             H[i, j] = LTR[i] * LTR[j] * kernel
-#     bounds = numpy.full((n, 2), (0, C))
-#     alpha, dual_loss, p = scipy.optimize.fmin_l_bfgs_b(LD_alpha, x0=numpy.zeros(n), args=(H,), bounds=bounds, factr=1.0)
-#     #print("Dual loss", -dual_loss)
-#     kernel=numpy.zeros((n,DTE.shape[1]))
-#     for i in range(n):
-#         for j in range(DTE.shape[1]):
-#             kernel = (numpy.dot(DTR[:, i].T, DTE[:, j]) + c)**d + K**2
-#     return numpy.dot(alpha * LTR, kernel)
 
 def polynomial_kernel_SVM(DTR, LTR, C, K, d, c, DTE, priors=[0.5, 0.5]):
     Z = 2 * LTR - 1
@@ -527,49 +479,6 @@ def RBF_kernel_SVM(DTR, LTR, C, K, gamma, DTE, priors=[0.5, 0.5]):
         factr=1.0)
     kernel = KFunc_RBF(DTR, DTE, gamma, K)
     return numpy.dot(alpha * Z, kernel)
-
-# def RBF_kernel_SVM(DTR, LTR, C, K, gamma, DTE):
-#     LTR = 2 * LTR - 1
-#     n = DTR.shape[1]
-#     H = numpy.zeros((n,n))
-#     kernel = numpy.zeros((n, n))
-#     for i in range(n):
-#         for j in range(n):
-#             kernel[i, j] = numpy.exp(-gamma * numpy.linalg.norm(DTR[:, i] - DTR[:, j])**2) + K**2
-#     H = kernel * vcol(LTR) * vrow(LTR)
-#     bounds = numpy.full((n, 2), (0, C))
-#     alpha, dual_loss, p = scipy.optimize.fmin_l_bfgs_b(LD_alpha, x0=numpy.zeros(n), args=(H,), bounds=bounds, factr=1.0)
-#     print("Dual loss", -dual_loss)
-#     kernel = numpy.zeros((n, DTE.shape[1]))
-#     for i in range(n):
-#         for j in range(DTE.shape[1]):
-#             kernel[i, j] = numpy.exp(-gamma * numpy.linalg.norm(DTR[:, i]-DTE[:, j])**2) + K**2
-#     return numpy.dot(alpha * LTR, kernel)
-
-# def RBF_kernel_SVM(DTR, LTR, C, K, gamma, LTE, DTE):
-#     LTR = 2 * LTR - 1
-#     n = DTR.shape[1]
-#     H = numpy.zeros((n,n))
-#     for i in range(n):
-#         for j in range(n):
-#             kernel=numpy.exp(-gamma * numpy.linalg.norm(DTR[:, i] - DTR[:, j])**2) + K**2
-#             H[i, j] = LTR[i] * LTR[j] * kernel
-#     bounds = numpy.full((n, 2), (0, C))
-#     ones = numpy.ones(n)
-#     alpha, dual_loss, p = scipy.optimize.fmin_l_bfgs_b(LD_alpha, x0=numpy.zeros(n), args=(H, ones), bounds=bounds, factr=1.0)
-#     print("Dual loss", -dual_loss)
-#     s=numpy.zeros(len(LTE))
-#     for i in range(len(LTE)):
-#         for j in range(n):
-#             if(alpha[j] != 0):
-#                 k = numpy.exp(-gamma * numpy.linalg.norm(DTR[:, j]-DTE[:, i])**2) + K**2
-#                 s[i] += alpha[j] * LTR[j] * k
-#     for i in range(len(LTE)):
-#         if s[i] > 0:
-#             s[i] = 1
-#         else:
-#             s[i] = 0
-#     return s
 
 def save_gmm(gmm, filename):
     gmmJson = [(i, j.tolist(), k.tolist()) for i, j, k in gmm]
